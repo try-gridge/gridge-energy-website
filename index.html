@@ -543,10 +543,13 @@ footer {
     <div class="count-badge"><span class="live-dot"></span> 40 homes on early list</div>
     <h2 class="display">Built for homes that<br>demand more.</h2>
     <p class="hero-sub" style="margin: 1rem auto 0; text-align:center;">Gridge is currently in limited pilot in Hyderabad and Bangalore. Join the waitlist for early access and founding-member pricing.</p>
-    <div class="waitlist-form">
-      <input class="waitlist-input" type="email" placeholder="your@email.com" id="emailInput"/>
-      <button class="btn-primary" onclick="handleWaitlist()">Join Waitlist</button>
-    </div>
+    <form name="waitlist" method="POST" data-netlify="true" 
+  class="waitlist-form">
+  <input type="hidden" name="form-name" value="waitlist" />
+  <input class="waitlist-input" type="email" name="email" 
+    placeholder="your@email.com" required />
+  <button type="submit" class="btn-primary">Join Waitlist</button>
+</form>
     <div class="waitlist-note" id="waitlistMsg">No spam. No pressure. We'll reach out when your city goes live.</div>
   </div>
 </section>
