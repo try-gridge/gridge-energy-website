@@ -1,4 +1,16 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Gridge Energy — Your home's electrical brain</title>
+<meta name="description" content="Gridge is a smart electrical panel that sees every appliance in your home — without touching a single wire. NILM-powered circuit intelligence for the discerning Indian home." />
+<meta name="theme-color" content="#111210" />
+<meta property="og:title" content="Gridge Energy — Your home's electrical brain" />
+<meta property="og:description" content="NILM-powered circuit intelligence for the discerning Indian home." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gridgeenergy.com/" />
+<meta name="twitter:card" content="summary_large_image" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Syne:wght@400;500;700&display=swap');
 
@@ -34,6 +46,7 @@ nav {
   top: 0;
   z-index: 100;
   padding: 1.25rem 2rem;
+  gap: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -123,7 +136,7 @@ section.hero {
 
 h1 {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(2.4rem, 4vw, 3.5rem);
+  font-size: clamp(2rem, 7vw, 3.5rem);
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.03em;
@@ -443,12 +456,37 @@ footer {
 }
 
 @media (max-width: 768px) {
+  nav { padding: 1rem 1.25rem; }
+  .logo { font-size: 1.05rem; }
+  .nav-cta { padding: 0.45rem 0.9rem; font-size: 0.72rem; letter-spacing: 0.06em; }
+  section.hero { padding: 2.5rem 1.25rem 2rem; min-height: auto; }
   .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-sub { font-size: 0.95rem; }
   .feature-grid { grid-template-columns: 1fr; }
-  .hero-stat-row { gap: 1.5rem; }
+  .hero-stat-row { gap: 1.25rem; flex-wrap: wrap; margin-top: 2rem; padding-top: 1.5rem; }
+  .stat { flex: 1 1 30%; min-width: 90px; }
+  .stat-num { font-size: 1.2rem; }
+  .stat-label { font-size: 0.65rem; }
+  section.product { padding: 3.5rem 1.25rem; }
+  section.waitlist { padding: 3.5rem 1.25rem 5rem; }
   .waitlist-form { flex-direction: column; }
+  .viz-panel { padding: 1rem; }
+  canvas#energyViz { height: 200px; }
+  footer {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 1.5rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .appliance-list { grid-template-columns: 1fr; }
+  .hero-stat-row { gap: 1rem; }
 }
 </style>
+</head>
+<body>
 
 <nav>
   <div class="logo">
@@ -595,33 +633,40 @@ renderAppliances();
 
 const canvas = document.getElementById('energyViz');
 const ctx = canvas.getContext('2d');
-canvas.width = canvas.offsetWidth || 400;
-canvas.height = 260;
+const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+function sizeCanvas() {
+  const cssW = canvas.offsetWidth || 400;
+  const cssH = canvas.offsetHeight || 260;
+  canvas.width = cssW * dpr;
+  canvas.height = cssH * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+sizeCanvas();
+window.addEventListener('resize', sizeCanvas);
 
 let t = 0;
 const waves = appliances.filter(a => a.active);
 const colors = ['#009E5C', '#00c970', '#4fd4a0'];
 
 function drawViz() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  const W = canvas.width, H = canvas.height;
-
-  ctx.fillStyle = 'rgba(26,28,26,0)';
-  ctx.fillRect(0, 0, W, H);
+  const W = canvas.width / dpr, H = canvas.height / dpr;
+  ctx.clearRect(0, 0, W, H);
 
   const gridAlpha = 0.06;
   ctx.strokeStyle = `rgba(255,255,255,${gridAlpha})`;
   ctx.lineWidth = 0.5;
-  for (let x = 0; x < W; x += 40) {
+  const gridStep = W < 360 ? 28 : 40;
+  for (let x = 0; x < W; x += gridStep) {
     ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
   }
-  for (let y = 0; y < H; y += 40) {
+  for (let y = 0; y < H; y += gridStep) {
     ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
   }
 
   waves.forEach((app, i) => {
     const freq = 0.018 + i * 0.006;
-    const amp = 22 + i * 8;
+    const amp = Math.min(22 + i * 8, H * 0.18);
     const yBase = H * (0.35 + i * 0.22);
     const speed = 0.8 + i * 0.3;
 
@@ -645,10 +690,14 @@ function drawViz() {
   const totalW = waves.reduce((s, a) => s + a.watts, 0);
   ctx.font = '500 11px Syne, sans-serif';
   ctx.fillStyle = '#E8EAE8';
-  ctx.fillText(`${(totalW / 1000).toFixed(2)} kW active`, W - 100, 18);
+  const label = `${(totalW / 1000).toFixed(2)} kW active`;
+  const labelW = ctx.measureText(label).width;
+  ctx.fillText(label, W - labelW - 8, 18);
 
   t += 0.04;
   requestAnimationFrame(drawViz);
 }
 drawViz();
 </script>
+</body>
+</html>
