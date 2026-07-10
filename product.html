@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111210">
+<title>Product — Gridge Energy</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#111210;color:#F5F3EE;line-height:1.55;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+:root{
+  --bg:#111210; --bg-2:#0E0F0D; --bg-3:#171815; --bg-deep:#0C0D0B;
+  --border:#2A2A25; --green:#22C55E; --green-bg:rgba(34,197,94,.07); --green-bd:rgba(34,197,94,.14);
+  --amber:#f59e0b; --warm:#F5F3EE;
+  --w50:rgba(245,243,238,.50); --w42:rgba(245,243,238,.42); --w35:rgba(245,243,238,.35);
+  --w28:rgba(245,243,238,.28); --w20:rgba(245,243,238,.20); --w14:rgba(245,243,238,.14); --w07:rgba(245,243,238,.07);
+}
+
+h1,h2,h3{font-family:'Syne',sans-serif;font-weight:700;line-height:1.05;letter-spacing:-.02em}
+p{font-weight:300;line-height:1.68}
+.t-label{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--green);display:block}
+.t-display{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.5rem,5.5vw,5rem);line-height:1.02;letter-spacing:-.025em}
+.t-h1{font-size:clamp(2.2rem,4.5vw,3.6rem);line-height:1.08}
+.t-h2{font-size:clamp(1.6rem,2.8vw,2.4rem);line-height:1.18}
+.t-display em,.t-h1 em,.t-h2 em{font-style:normal;font-weight:400;color:var(--w35)}
+.t-body-lg{font-size:1.05rem;line-height:1.68;color:var(--w50);font-weight:300}
+
+.container{width:100%;max-width:1120px;margin:0 auto;padding:0 2.5rem}
+.container-narrow{width:100%;max-width:720px;margin:0 auto;padding:0 2.5rem}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;background:rgba(17,18,16,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{width:100%;max-width:1120px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:32px;height:32px;flex-shrink:0;display:block}
+.nav-logo-text{font-family:'Syne',sans-serif;font-weight:600;font-size:1.05rem;color:var(--warm);letter-spacing:-.01em;white-space:nowrap}
+.nav-logo-text em{font-style:normal;font-weight:800;color:var(--green)}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{font-size:.875rem;color:var(--w42);padding:.38rem .85rem;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap}
+.nav-links a:hover{color:var(--warm);background:var(--w07)}
+.nav-links a.active{color:var(--warm);font-weight:500}
+.nav-cta{font-size:.875rem;font-weight:500;color:var(--warm);padding:.42rem 1.1rem;border-radius:8px;background:var(--w07);border:1px solid var(--w14);white-space:nowrap}
+.nav-cta:hover{background:var(--w14)}
+
+.btn{display:inline-flex;align-items:center;gap:7px;padding:.78rem 1.6rem;border-radius:9px;font-weight:500;font-size:.9rem;cursor:pointer;border:none;text-decoration:none;transition:all .18s;white-space:nowrap}
+.btn-green{background:var(--green);color:#111210;font-weight:600}
+.btn-green:hover{background:#19a84e;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--w50);border:1px solid var(--w14)}
+.btn-ghost:hover{color:var(--warm);border-color:var(--w28)}
+.btn-lg{padding:.9rem 2rem;font-size:.95rem;border-radius:10px}
+.btn-text{background:none;border:none;cursor:pointer;font-size:.9rem;color:var(--w42);text-decoration:underline;text-decoration-color:var(--w14);text-underline-offset:3px}
+
+.dot{display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;flex-shrink:0;animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}
+
+.sec{padding:6rem 0}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:6rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.grid-3>*{background:var(--bg)}
+
+footer{background:var(--bg-deep);border-top:1px solid var(--border);padding:4rem 0 2.5rem}
+.footer-brand-row{display:flex;align-items:center;gap:10px;margin-bottom:.85rem}
+.footer-mark{width:30px;height:30px;flex-shrink:0}
+.footer-brand-text{font-family:'Syne',sans-serif;font-weight:600;font-size:1.05rem;color:var(--warm)}
+.footer-brand-text em{font-style:normal;font-weight:800;color:var(--green)}
+.footer-tagline{font-size:.88rem;font-weight:300;color:var(--w28);max-width:340px}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:3rem;padding-top:1.75rem;border-top:1px solid var(--border)}
+.footer-links{display:flex;gap:1.75rem}
+.footer-links a{font-size:.82rem;color:var(--w28)}
+.footer-links a:hover{color:var(--w50)}
+.footer-copy{font-size:.75rem;color:var(--w20)}
+
+.page-hero{padding:calc(60px + 4.5rem) 0 3rem;background:var(--bg);border-bottom:1px solid var(--border)}
+.intro-diag{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:3rem}
+.id-col{background:var(--bg);padding:1.75rem}
+.id-col.hi{background:var(--bg-2)}
+.id-lbl{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--w20);margin-bottom:.8rem}
+.id-col.hi .id-lbl{color:rgba(34,197,94,.5)}
+.id-title{font-size:1rem;color:var(--warm);margin-bottom:.35rem}
+.id-desc{font-size:.82rem;color:var(--w35);line-height:1.65}
+
+.proof{background:var(--bg-deep);border-bottom:1px solid var(--border);padding:1.4rem 0}
+.proof-inner{display:flex;gap:2.5rem;align-items:center;justify-content:center;flex-wrap:wrap}
+.proof-item{font-size:.8rem;color:var(--w28);font-weight:300}
+.proof-item strong{color:var(--w50);font-weight:400}
+
+.feature-row{padding:6.5rem 0;border-bottom:1px solid var(--border);background:var(--bg)}
+.feature-row.alt{background:var(--bg-2)}
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.feature-grid.flip .feat-text{order:2}
+.feature-grid.flip .feat-visual{order:1}
+.feat-text .t-label{margin-bottom:1rem}
+.feat-text h2{margin-bottom:1rem}
+.feat-text .t-body-lg{margin-bottom:1.5rem}
+.feat-detail{padding:.85rem 0;border-top:1px solid var(--border)}
+.feat-detail:last-child{border-bottom:1px solid var(--border)}
+.fd-title{font-size:.9rem;color:var(--warm);margin-bottom:.2rem}
+.fd-desc{font-size:.83rem;color:var(--w35);line-height:1.65}
+.feat-visual{border-radius:14px;overflow:hidden;border:1px solid var(--border);min-height:340px}
+
+
+
+text.lbl{fill:rgba(245,243,238,.45);font-size:9.5px;font-family:'DM Mono',monospace}
+text.tag{fill:#0E0F0D;font-size:9.5px;font-weight:500}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.rec-dot{animation:blink 1.4s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.rec-dot{animation:none}}
+
+@media(max-width:680px){.nav-links{display:none}}
+@media(max-width:900px){
+  .feature-grid,.grid-2,.grid-3,.intro-diag{grid-template-columns:1fr}
+  .feature-grid.flip .feat-text,.feature-grid.flip .feat-visual{order:unset}
+  .footer-bottom{flex-direction:column;gap:1.25rem;text-align:center}
+  .footer-links{justify-content:center;flex-wrap:wrap}
+}
+@media(min-width:680px) and (max-width:900px){.sec,.sec-lg{padding:5rem 0}}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <svg class="logo-mark" viewBox="0 0 40 40" data-logo-id="nav">
+        <g transform="translate(20,20) scale(0.282)">
+          <line data-id="seg1" x1="0" y1="0" x2="0" y2="-41" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg2" x1="0" y1="0" x2="35.5" y2="-20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg3" x1="0" y1="0" x2="35.5" y2="20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg4" x1="0" y1="0" x2="0" y2="41" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg5" x1="0" y1="0" x2="-35.5" y2="20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg6" x1="0" y1="0" x2="-35.5" y2="-20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <polygon data-id="hex" points="0,-41 35.5,-20.5 35.5,20.5 0,41 -35.5,20.5 -35.5,-20.5" fill="none" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <circle cx="0" cy="0" r="16" fill="#22C55E"><animate attributeName="opacity" values="0.5;0.85;0.5" dur="2.4s" repeatCount="indefinite"/></circle>
+          <circle cx="0" cy="0" r="7" fill="#111210"/>
+        </g>
+      </svg>
+      <span class="nav-logo-text">Gridge <em>Energy</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="product.html" class="active">Product</a>
+      <a href="technology.html">Technology</a>
+      <a href="ecosystem.html">Ecosystem</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Request a Demo</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="reveal">
+      <div class="t-label" style="margin-bottom:1.1rem">The Gridge Panel</div>
+      <h1 class="t-display" style="max-width:760px;margin-bottom:1.25rem">Not a gadget. <em>Infrastructure.</em></h1>
+      <p class="t-body-lg" style="max-width:480px;margin-bottom:2rem">A direct drop-in replacement for the distribution board — solid-state, safety-certified, engineered for India's 170–270V grid realities.</p>
+      <a href="contact.html" class="btn btn-green btn-lg">Request a Demo</a>
+    </div>
+    <div class="intro-diag reveal d1">
+      <div class="id-col"><div class="id-lbl">01 — Monitoring</div><div class="id-title">Circuit-level visibility</div><div class="id-desc">Multiple circuits per panel, sized to your home — from a compact apartment to a larger independent villa. Sub-second monitoring, 24/7, no smart plugs required.</div></div>
+      <div class="id-col hi"><div class="id-lbl">02 — Intelligence</div><div class="id-title">AI-driven optimisation</div><div class="id-desc">Demand forecasting, ToD scheduling, bill optimisation — India-trained models.</div></div>
+      <div class="id-col"><div class="id-lbl">03 — Safety</div><div class="id-title">Predictive protection</div><div class="id-desc">Catches faults before they cause damage — and warns you before something fails.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="feature-row">
+  <div class="container">
+    <div class="feature-grid">
+      <div class="feat-text reveal">
+        <div class="t-label">Circuit Intelligence</div>
+        <h2 class="t-h2">See everything.<br><em>Miss nothing.</em></h2>
+        <p class="t-body-lg">Appliance-level visibility across every circuit — without a single additional sensor or smart plug anywhere in the home.</p>
+        <div class="feat-detail"><div class="fd-title">Identifies every appliance automatically</div><div class="fd-desc">Gridge reads the electrical signature of every device from the panel — no extra sensors, no smart plugs, no rewiring required.</div></div>
+        <div class="feat-detail"><div class="fd-title">24/7 real-time tracking</div><div class="fd-desc">Every switch-on, standby draw, and anomaly — captured at sub-second granularity, continuously.</div></div>
+        <div class="feat-detail"><div class="fd-title">Know exactly which appliance is eating your money</div><div class="fd-desc">See it broken down by room, by appliance, by time of day — so you know exactly where to act.</div></div>
+      </div>
+      <div class="feat-visual reveal d2" style="background:var(--bg-2);padding:1.5rem 1.25rem;display:flex;align-items:center;justify-content:center">
+        <svg width="100%" viewBox="0 0 430 300" role="img" style="display:block">
+          <title>Today's electricity cost, broken down by appliance, plus a rotating maintenance alert</title>
+          <desc>A single total cost for today splits into four labelled bars, one per appliance, each filling in with its name, icon colour, and rupee cost as Gridge identifies it. Below that, a rotating alert box surfaces practical maintenance findings such as an air conditioner drawing more power than rated, a geyser showing scale buildup, or a fridge compressor pulling unusually high power, each with a plain-language recommendation</desc>
+
+          <text x="20" y="28" style="fill:rgba(245,243,238,.45);font-size:11px;font-family:'DM Sans',sans-serif">Today, so far</text>
+          <text id="pi-total" x="20" y="54" style="fill:#F5F3EE;font-size:24px;font-family:'Syne',sans-serif;font-weight:700">₹0</text>
+          <text x="20" y="72" style="fill:rgba(245,243,238,.3);font-size:10px;font-family:'DM Sans',sans-serif">Detected by your Gridge panel — no extra sensors</text>
+
+          <g id="pi-row-ac">
+            <circle cx="26" cy="96" r="4" fill="#22C55E"/>
+            <text x="40" y="100" style="fill:rgba(245,243,238,.55);font-size:11px;font-family:'DM Sans',sans-serif">Living room AC</text>
+            <rect x="40" y="107" width="0" height="7" rx="3.5" fill="#22C55E" id="pi-bar-ac"/>
+            <rect x="40" y="107" width="350" height="7" rx="3.5" fill="rgba(245,243,238,.06)"/>
+            <text id="pi-val-ac" x="406" y="100" text-anchor="end" style="fill:#F5F3EE;font-size:11px;font-family:'DM Mono',monospace">₹0</text>
+          </g>
+          <g id="pi-row-ev">
+            <circle cx="26" cy="128" r="4" fill="#f59e0b"/>
+            <text x="40" y="132" style="fill:rgba(245,243,238,.55);font-size:11px;font-family:'DM Sans',sans-serif">EV charger</text>
+            <rect x="40" y="139" width="0" height="7" rx="3.5" fill="#f59e0b" id="pi-bar-ev"/>
+            <rect x="40" y="139" width="350" height="7" rx="3.5" fill="rgba(245,243,238,.06)"/>
+            <text id="pi-val-ev" x="406" y="132" text-anchor="end" style="fill:#F5F3EE;font-size:11px;font-family:'DM Mono',monospace">₹0</text>
+          </g>
+          <g id="pi-row-kt">
+            <circle cx="26" cy="160" r="4" fill="#22C55E"/>
+            <text x="40" y="164" style="fill:rgba(245,243,238,.55);font-size:11px;font-family:'DM Sans',sans-serif">Kitchen</text>
+            <rect x="40" y="171" width="0" height="7" rx="3.5" fill="#22C55E" id="pi-bar-kt"/>
+            <rect x="40" y="171" width="350" height="7" rx="3.5" fill="rgba(245,243,238,.06)"/>
+            <text id="pi-val-kt" x="406" y="164" text-anchor="end" style="fill:#F5F3EE;font-size:11px;font-family:'DM Mono',monospace">₹0</text>
+          </g>
+          <g id="pi-row-lt">
+            <circle cx="26" cy="192" r="4" fill="#E8B563"/>
+            <text x="40" y="196" style="fill:rgba(245,243,238,.55);font-size:11px;font-family:'DM Sans',sans-serif">Lighting</text>
+            <rect x="40" y="203" width="0" height="7" rx="3.5" fill="#E8B563" id="pi-bar-lt"/>
+            <rect x="40" y="203" width="350" height="7" rx="3.5" fill="rgba(245,243,238,.06)"/>
+            <text id="pi-val-lt" x="406" y="196" text-anchor="end" style="fill:#F5F3EE;font-size:11px;font-family:'DM Mono',monospace">₹0</text>
+          </g>
+
+          <rect x="20" y="224" width="390" height="58" rx="10" fill="#171815" stroke="var(--border)"/>
+          <circle cx="34" cy="240" r="3.5" id="pi-alert-dot" fill="#f59e0b"/>
+          <text id="pi-alert-badge" x="44" y="243" style="fill:#f59e0b;font-size:9.5px;font-family:'DM Mono',monospace;letter-spacing:.08em">MAINTENANCE ALERT</text>
+          <text id="pi-alert-l1" x="34" y="259" style="fill:rgba(245,243,238,.7);font-size:11.5px;font-family:'DM Sans',sans-serif"></text>
+          <text id="pi-alert-l2" x="34" y="275" style="fill:rgba(245,243,238,.7);font-size:11.5px;font-family:'DM Sans',sans-serif"></text>
+
+          <circle class="rec-dot" cx="385" cy="28" r="2.6" fill="#22C55E"/>
+          <text x="395" y="31" style="fill:rgba(245,243,238,.4);font-size:9.5px;font-family:'DM Mono',monospace">live</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="feature-row alt">
+  <div class="container">
+    <div class="feature-grid flip">
+      <div class="feat-text reveal d1">
+        <div class="t-label">For You, Every Day</div>
+        <h2 class="t-h2">Decisions your home<br><em>makes automatically.</em></h2>
+        <p class="t-body-lg">The Gridge AI blends solar, battery and grid in real time — whether you're asking for something right now, or it's just learning your routine.</p>
+        <div class="feat-detail"><div class="fd-title">Answers requests instantly</div><div class="fd-desc">Tap "charge fast" in the app and Gridge blends solar, battery and grid in real time to get you there — then eases off to protect your bill.</div></div>
+        <div class="feat-detail"><div class="fd-title">Learns your routines</div><div class="fd-desc">Notices your washing machine usually runs mid-morning, and nudges it to exactly when solar output peaks.</div></div>
+        <div class="feat-detail"><div class="fd-title">Protects you from peak pricing</div><div class="fd-desc">When evening peak tariffs start, Gridge leans on the battery first — calling on the grid only when it truly has to.</div></div>
+      </div>
+      <div class="feat-visual reveal" style="background:var(--bg-2);padding:1.5rem 1.25rem;display:flex;align-items:center;justify-content:center">
+        <svg width="100%" viewBox="0 0 430 300" role="img" style="display:block">
+          <title>Three real examples of the Gridge AI making energy decisions</title>
+          <desc>A rotating set of three everyday scenarios — a fast-charge request handled by blending solar, battery and grid; a washing machine started automatically when solar peaks; and the home switching to mostly battery power during evening peak pricing — each showing the live mix of solar, battery and grid power used, and the plain-language outcome</desc>
+
+          <text id="ai-badge" x="20" y="26" style="fill:#22C55E;font-size:9.5px;font-family:'DM Mono',monospace;letter-spacing:.1em">YOU ASKED</text>
+          <text id="ai-trigger" x="20" y="50" style="fill:#F5F3EE;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500">"Charge my EV fast" — 6:40 PM</text>
+
+          <text x="20" y="76" style="fill:rgba(245,243,238,.35);font-size:9.5px;font-family:'DM Sans',sans-serif">Power mix used for this</text>
+          <rect x="20" y="84" width="390" height="14" rx="7" fill="rgba(245,243,238,.06)"/>
+          <rect id="ai-mix-solar" x="20" y="84" width="0" height="14" fill="#22C55E"/>
+          <rect id="ai-mix-batt" x="20" y="84" width="0" height="14" fill="#5B9BD5"/>
+          <rect id="ai-mix-grid" x="20" y="84" width="0" height="14" rx="7" fill="rgba(245,243,238,.18)"/>
+
+          <circle cx="26" cy="116" r="4" fill="#22C55E"/><text x="36" y="120" style="fill:rgba(245,243,238,.5);font-size:10px;font-family:'DM Sans',sans-serif">Solar</text><text id="ai-pct-solar" x="78" y="120" style="fill:#F5F3EE;font-size:10px;font-family:'DM Mono',monospace">8%</text>
+          <circle cx="180" cy="116" r="4" fill="#5B9BD5"/><text x="190" y="120" style="fill:rgba(245,243,238,.5);font-size:10px;font-family:'DM Sans',sans-serif">Battery</text><text id="ai-pct-batt" x="244" y="120" style="fill:#F5F3EE;font-size:10px;font-family:'DM Mono',monospace">57%</text>
+          <circle cx="320" cy="116" r="4" fill="rgba(245,243,238,.4)"/><text x="330" y="120" style="fill:rgba(245,243,238,.5);font-size:10px;font-family:'DM Sans',sans-serif">Grid</text><text id="ai-pct-grid" x="372" y="120" style="fill:#F5F3EE;font-size:10px;font-family:'DM Mono',monospace">35%</text>
+
+          <rect x="20" y="146" width="390" height="68" rx="10" fill="#171815" stroke="var(--border)"/>
+          <text x="38" y="166" style="fill:rgba(245,243,238,.4);font-size:9.5px;font-family:'DM Mono',monospace;letter-spacing:.06em">RESULT</text>
+          <text id="ai-outcome-1" x="38" y="186" style="fill:#22C55E;font-size:12.5px;font-family:'DM Sans',sans-serif;font-weight:500"></text>
+          <text id="ai-outcome-2" x="38" y="204" style="fill:#22C55E;font-size:12.5px;font-family:'DM Sans',sans-serif;font-weight:500"></text>
+
+          <circle id="ai-dot-0" cx="197" cy="234" r="3" fill="#22C55E"/>
+          <circle id="ai-dot-1" cx="212" cy="234" r="3" fill="rgba(245,243,238,.18)"/>
+          <circle id="ai-dot-2" cx="227" cy="234" r="3" fill="rgba(245,243,238,.18)"/>
+
+          <text x="20" y="262" style="fill:rgba(245,243,238,.28);font-size:9.5px;font-family:'DM Sans',sans-serif">Decided and acted on by your Gridge Flex — your bill optimiser</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="feature-row">
+  <div class="container">
+    <div class="feature-grid">
+      <div class="feat-text reveal">
+        <div class="t-label">Predictive Safety</div>
+        <h2 class="t-h2">Protection that<br><em>never sleeps.</em></h2>
+        <p class="t-body-lg">Gridge catches electrical faults before they become fires, and handles voltage swings before your appliances ever notice.</p>
+        <div class="feat-detail"><div class="fd-title">Arc fault detection</div><div class="fd-desc">Gridge monitors every circuit continuously and isolates a fault the moment it appears — before it becomes a fire.</div></div>
+        <div class="feat-detail"><div class="fd-title">Seamless power, even through grid faults</div><div class="fd-desc">When voltage fluctuates dangerously, Gridge switches your home to battery before your devices ever notice — power simply continues.</div></div>
+        <div class="feat-detail"><div class="fd-title">Automated circuit isolation</div><div class="fd-desc">When a threshold is crossed, Gridge isolates only the affected circuit instantly — everything else stays on.</div></div>
+      </div>
+      <div class="feat-visual reveal d2" style="background:var(--bg-2);padding:1.5rem 1.25rem;display:flex;align-items:center;justify-content:center">
+        <svg width="100%" viewBox="0 0 430 300" role="img" style="display:block">
+          <title>Two examples of what the Gridge panel does to protect your home</title>
+          <desc>A rotating pair of scenarios. First, an arc fault on the kitchen circuit: that breaker flashes red then isolates while the other three circuits stay lit and unaffected. Second, a voltage fluctuation on the incoming grid supply: the supply line shown inside the panel turns jittery, then the panel switches the power source from grid to battery and the line becomes flat and steady again, demonstrating seamless uninterrupted power through a grid fault</desc>
+
+          <text x="20" y="24" style="fill:rgba(245,243,238,.35);font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.06em">INSIDE YOUR GRIDGE PANEL</text>
+          <rect x="20" y="34" width="390" height="160" rx="14" fill="#171815" stroke="var(--border)" stroke-width="1"/>
+
+          <g id="sf-supply-group">
+            <text x="34" y="58" style="fill:rgba(245,243,238,.4);font-size:10px;font-family:'DM Sans',sans-serif">Power source</text>
+            <text id="sf-source" x="140" y="58" style="fill:#22C55E;font-size:11px;font-family:'DM Mono',monospace;font-weight:500">GRID</text>
+            <path id="sf-wave-line" d="M34,72 L386,72" fill="none" stroke="#22C55E" stroke-width="1.4"/>
+          </g>
+
+          <g id="sf-breaker-group">
+            <g id="sf-row-ac"><circle cx="46" cy="92" r="5" fill="#22C55E" id="sf-led-ac"/><text x="62" y="96" style="fill:rgba(245,243,238,.55);font-size:11px;font-family:'DM Sans',sans-serif">Living room AC</text><text x="390" y="96" text-anchor="end" style="fill:#22C55E;font-size:10px;font-family:'DM Mono',monospace" id="sf-state-ac">ON</text></g>
+            <g id="sf-row-ev"><circle cx="46" cy="116" r="5" fill="#22C55E" id="sf-led-ev"/><text x="62" y="120" style="fill:rgba(245,243,238,.55);font-size:11px;font-family:'DM Sans',sans-serif">EV charger</text><text x="390" y="120" text-anchor="end" style="fill:#22C55E;font-size:10px;font-family:'DM Mono',monospace" id="sf-state-ev">ON</text></g>
+            <g id="sf-row-kt"><circle cx="46" cy="140" r="5" fill="#22C55E" id="sf-led-kt"/><text x="62" y="144" style="fill:rgba(245,243,238,.55);font-size:11px;font-family:'DM Sans',sans-serif">Kitchen</text><text x="390" y="144" text-anchor="end" style="fill:#22C55E;font-size:10px;font-family:'DM Mono',monospace" id="sf-state-kt">ON</text></g>
+            <g id="sf-row-lt"><circle cx="46" cy="164" r="5" fill="#22C55E" id="sf-led-lt"/><text x="62" y="168" style="fill:rgba(245,243,238,.55);font-size:11px;font-family:'DM Sans',sans-serif">Lighting</text><text x="390" y="168" text-anchor="end" style="fill:#22C55E;font-size:10px;font-family:'DM Mono',monospace" id="sf-state-lt">ON</text></g>
+          </g>
+
+          <rect x="20" y="204" width="390" height="58" rx="10" fill="#0E0F0D" stroke="var(--border)"/>
+          <text x="38" y="222" id="sf-status-text" style="fill:rgba(245,243,238,.5);font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.04em">ALL CIRCUITS NOMINAL</text>
+          <text x="38" y="240" id="sf-status-sub1" style="fill:rgba(245,243,238,.65);font-size:11.5px;font-family:'DM Sans',sans-serif">Monitored continuously, 24 hours a day</text>
+          <text x="38" y="256" id="sf-status-sub2" style="fill:rgba(245,243,238,.65);font-size:11.5px;font-family:'DM Sans',sans-serif"></text>
+
+          <circle id="sf-dot-0" cx="205" cy="276" r="3" fill="#22C55E"/>
+          <circle id="sf-dot-1" cx="220" cy="276" r="3" fill="rgba(245,243,238,.18)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div>
+      <div class="footer-brand-row">
+        <svg class="footer-mark" viewBox="0 0 40 40" data-logo-id="footer">
+          <g transform="translate(20,20) scale(0.282)">
+            <line data-id="seg1" x1="0" y1="0" x2="0" y2="-41" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg2" x1="0" y1="0" x2="35.5" y2="-20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg3" x1="0" y1="0" x2="35.5" y2="20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg4" x1="0" y1="0" x2="0" y2="41" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg5" x1="0" y1="0" x2="-35.5" y2="20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg6" x1="0" y1="0" x2="-35.5" y2="-20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <polygon data-id="hex" points="0,-41 35.5,-20.5 35.5,20.5 0,41 -35.5,20.5 -35.5,-20.5" fill="none" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <circle cx="0" cy="0" r="16" fill="#22C55E"><animate attributeName="opacity" values="0.5;0.85;0.5" dur="2.4s" repeatCount="indefinite"/></circle>
+            <circle cx="0" cy="0" r="7" fill="#111210"/>
+          </g>
+        </svg>
+        <span class="footer-brand-text">Gridge <em>Energy</em></span>
+      </div>
+      <div class="footer-tagline">Smarter homes. Lighter bills. Safer families.</div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="product.html">Product</a>
+        <a href="technology.html">Technology</a>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-copy">© 2026 Gridge Energy · Bengaluru, India · gridgeenergy.com</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const REDUCE_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(REDUCE_MOTION){document.querySelectorAll('svg').forEach(s=>{if(s.pauseAnimations)s.pauseAnimations();});}
+
+const revealEls=document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(entries=>entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
+  }),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+  revealEls.forEach(el=>io.observe(el));
+  setTimeout(()=>revealEls.forEach(el=>el.classList.add('visible')),2500);
+}else{revealEls.forEach(el=>el.classList.add('visible'));}
+
+document.querySelectorAll('svg[data-logo-id]').forEach(svg=>{
+  const lines=svg.querySelectorAll('[data-id^="seg"]');
+  const hex=svg.querySelector('[data-id="hex"]');
+  if(REDUCE_MOTION){[hex,...lines].forEach(el=>{if(el)el.style.opacity='0.5';});return;}
+  let t=0;
+  setInterval(()=>{
+    t=(t+1)%6;
+    [hex,...lines].forEach((el,i)=>{if(!el)return;el.style.transition='opacity .5s ease';el.style.opacity=i===t?'0.7':'0.3';});
+  },380);
+});
+
+if(!REDUCE_MOTION){
+/* Circuit Intelligence — bill broken down by appliance, bars build in sequence */
+(function(){
+  const rows=[
+    {bar:'pi-bar-ac',val:'pi-val-ac',amount:64,start:.08,end:.30},
+    {bar:'pi-bar-ev',val:'pi-val-ev',amount:52,start:.32,end:.52},
+    {bar:'pi-bar-kt',val:'pi-val-kt',amount:22,start:.54,end:.70},
+    {bar:'pi-bar-lt',val:'pi-val-lt',amount:9, start:.72,end:.86},
+  ];
+  const SCALE=70,MAXW=350;
+  const totalEl=document.getElementById('pi-total');
+  if(!document.getElementById('pi-bar-ac'))return;
+  function clamp01(x){return Math.max(0,Math.min(1,x))}
+  function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+  const CYCLE=7000;
+  function update(now){
+    const t=(now%CYCLE)/CYCLE;
+    let total=0;
+    rows.forEach(r=>{
+      const p=ease(clamp01((t-r.start)/(r.end-r.start)));
+      const shown=r.amount*p;
+      total+=shown;
+      document.getElementById(r.bar).setAttribute('width',(MAXW*(shown/SCALE)).toFixed(1));
+      document.getElementById(r.val).textContent='₹'+Math.round(shown);
+    });
+    if(totalEl)totalEl.textContent='₹'+Math.round(total);
+    requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+
+  /* Rotating maintenance-insight alert — pre-wrapped to two short lines so nothing overflows the card */
+  const alerts=[
+    {color:'#f59e0b',l1:'Your 3-star AC is using 18% more power than rated.',l2:'Try cleaning the filters.'},
+    {color:'#f59e0b',l1:'Your geyser shows scaling on the heating plate.',l2:'Clean the plates and check your water hardness.'},
+    {color:'#E24B4A',l1:'Your fridge compressor is drawing high power.',l2:'It may be damaged — worth a service check.'},
+  ];
+  const aBadge=document.getElementById('pi-alert-badge'),aDot=document.getElementById('pi-alert-dot');
+  const aL1=document.getElementById('pi-alert-l1'),aL2=document.getElementById('pi-alert-l2');
+  if(aBadge){
+    let ai=0;
+    function paint(){
+      const a=alerts[ai];
+      aBadge.setAttribute('fill',a.color);aDot.setAttribute('fill',a.color);
+      aL1.textContent=a.l1;aL2.textContent=a.l2;
+      ai=(ai+1)%alerts.length;
+    }
+    paint();
+    setInterval(paint,5000);
+  }
+})();
+
+/* AI Platform — three concrete scenarios, rotating, each with a live solar/battery/grid mix */
+(function(){
+  const badgeEl=document.getElementById('ai-badge');
+  if(!badgeEl)return;
+  const triggerEl=document.getElementById('ai-trigger'),outcome1=document.getElementById('ai-outcome-1'),outcome2=document.getElementById('ai-outcome-2');
+  const pctSolar=document.getElementById('ai-pct-solar'),pctBatt=document.getElementById('ai-pct-batt'),pctGrid=document.getElementById('ai-pct-grid');
+  const barSolar=document.getElementById('ai-mix-solar'),barBatt=document.getElementById('ai-mix-batt'),barGrid=document.getElementById('ai-mix-grid');
+  const dots=[document.getElementById('ai-dot-0'),document.getElementById('ai-dot-1'),document.getElementById('ai-dot-2')];
+
+  const scenarios=[
+    {badge:'YOU ASKED',color:'#22C55E',trigger:'"Charge my EV fast" — 6:40 PM',mix:[8,57,35],
+     out1:'Reached 80% in 15 minutes, then eased off',out2:'to protect your bill.'},
+    {badge:'ROUTINE LEARNED',color:'#5B9BD5',trigger:'10:40 AM — solar output near its peak',mix:[91,9,0],
+     out1:'Washing machine started on its own —',out2:'almost free to run.'},
+    {badge:'PEAK PROTECTION',color:'#E8B563',trigger:'7:30 PM — grid enters peak pricing',mix:[0,78,22],
+     out1:'Home runs mostly on battery until peak',out2:'pricing ends at 10 PM.'},
+  ];
+
+  const PER=5000,FADE=400,BARX=20,BARW=390;
+  function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+  function lerp(a,b,t){return a+(b-a)*t}
+
+  function update(now){
+    const total=scenarios.length*PER;
+    const t=now%total;
+    const idx=Math.floor(t/PER);
+    const localT=t-idx*PER;
+    const prevIdx=(idx+scenarios.length-1)%scenarios.length;
+    const s=scenarios[idx],prev=scenarios[prevIdx];
+
+    const morphT=ease(Math.min(1,localT/600));
+    const mix=[0,1,2].map(i=>lerp(prev.mix[i],s.mix[i],morphT));
+
+    const wSolar=BARW*mix[0]/100, wBatt=BARW*mix[1]/100, wGrid=BARW*mix[2]/100;
+    barSolar.setAttribute('width',wSolar.toFixed(1));
+    barBatt.setAttribute('x',(BARX+wSolar).toFixed(1));barBatt.setAttribute('width',wBatt.toFixed(1));
+    barGrid.setAttribute('x',(BARX+wSolar+wBatt).toFixed(1));barGrid.setAttribute('width',wGrid.toFixed(1));
+    pctSolar.textContent=Math.round(mix[0])+'%';
+    pctBatt.textContent=Math.round(mix[1])+'%';
+    pctGrid.textContent=Math.round(mix[2])+'%';
+
+    const textOpacity = localT<FADE ? (localT/FADE).toFixed(2) : (localT>PER-FADE ? ((PER-localT)/FADE).toFixed(2) : '1');
+    badgeEl.textContent=s.badge;badgeEl.setAttribute('fill',s.color);badgeEl.style.opacity=textOpacity;
+    triggerEl.textContent=s.trigger;triggerEl.style.opacity=textOpacity;
+    outcome1.textContent=s.out1;outcome1.style.opacity=textOpacity;
+    outcome2.textContent=s.out2;outcome2.style.opacity=textOpacity;
+
+    dots.forEach((d,i)=>d.setAttribute('fill', i===idx?'#22C55E':'rgba(245,243,238,.18)'));
+
+    requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+})();
+
+/* Protection & Safety — a literal Gridge panel; one breaker isolates, the rest stay live */
+(function(){
+  const ledKt=document.getElementById('sf-led-kt');
+  if(!ledKt)return;
+  const stateKt=document.getElementById('sf-state-kt');
+  const statusText=document.getElementById('sf-status-text'),sub1=document.getElementById('sf-status-sub1'),sub2=document.getElementById('sf-status-sub2');
+  const supplyGroup=document.getElementById('sf-supply-group'),breakerGroup=document.getElementById('sf-breaker-group');
+  const sourceEl=document.getElementById('sf-source'),waveLine=document.getElementById('sf-wave-line');
+  const dot0=document.getElementById('sf-dot-0'),dot1=document.getElementById('sf-dot-1');
+
+  const SCENE=6000, TOTAL=SCENE*2;
+
+  function flatLine(){return 'M34,72 L386,72';}
+  function jitterLine(now){
+    let d='M34,72';
+    for(let x=44;x<=386;x+=8){
+      const n=Math.sin(x*0.7+now*0.02)*5 + (Math.random()-.5)*4;
+      d+=' L'+x+','+(72+n).toFixed(1);
+    }
+    return d;
+  }
+
+  function update(now){
+    const t=now%TOTAL;
+    const sceneIdx=Math.floor(t/SCENE);
+    const lt=(t-sceneIdx*SCENE)/SCENE;
+
+    dot0.setAttribute('fill', sceneIdx===0?'#22C55E':'rgba(245,243,238,.18)');
+    dot1.setAttribute('fill', sceneIdx===1?'#22C55E':'rgba(245,243,238,.18)');
+
+    if(sceneIdx===0){
+      /* Scenario A — arc fault on Kitchen, selective isolation */
+      breakerGroup.setAttribute('opacity','1');
+      supplyGroup.setAttribute('opacity','0.25');
+      waveLine.setAttribute('d',flatLine());
+      sourceEl.textContent='GRID';sourceEl.setAttribute('fill','#22C55E');
+
+      const FAULT_AT=.55, ISO_AT=.62, RESET_AT=.88;
+      if(lt<FAULT_AT){
+        ledKt.setAttribute('fill','#22C55E');
+        stateKt.setAttribute('fill','#22C55E');stateKt.textContent='ON';
+        statusText.textContent='ALL CIRCUITS NOMINAL';statusText.setAttribute('fill','rgba(245,243,238,.5)');
+        sub1.textContent='Monitored continuously, 24 hours a day';sub2.textContent='';
+      }else if(lt<ISO_AT){
+        const blink=Math.floor(now/150)%2===0;
+        ledKt.setAttribute('fill', blink?'#E24B4A':'#171815');
+        stateKt.setAttribute('fill','#E24B4A');stateKt.textContent='FAULT';
+        statusText.textContent='ARC FAULT DETECTED — KITCHEN';statusText.setAttribute('fill','rgba(226,75,74,.85)');
+        sub1.textContent='Isolating the circuit, automatically';sub2.textContent='';
+      }else if(lt<RESET_AT){
+        ledKt.setAttribute('fill','rgba(245,243,238,.14)');
+        stateKt.setAttribute('fill','rgba(245,243,238,.3)');stateKt.textContent='ISOLATED';
+        statusText.textContent='KITCHEN ISOLATED IN 0.8 MS';statusText.setAttribute('fill','#22C55E');
+        sub1.textContent='AC, EV charger & Lighting stayed on';sub2.textContent='the whole time.';
+      }else{
+        ledKt.setAttribute('fill','#22C55E');
+        stateKt.setAttribute('fill','#22C55E');stateKt.textContent='ON';
+        statusText.textContent='ALL CIRCUITS NOMINAL';statusText.setAttribute('fill','rgba(245,243,238,.5)');
+        sub1.textContent='Monitored continuously, 24 hours a day';sub2.textContent='';
+      }
+    }else{
+      /* Scenario B — grid voltage fluctuation, seamless switch to battery */
+      breakerGroup.setAttribute('opacity','0.25');
+      supplyGroup.setAttribute('opacity','1');
+
+      const FLUC_AT=.40, SWITCH_AT=.55, RESET_AT=.92;
+      if(lt<FLUC_AT){
+        waveLine.setAttribute('d',flatLine());waveLine.setAttribute('stroke','#22C55E');
+        sourceEl.textContent='GRID';sourceEl.setAttribute('fill','#22C55E');
+        statusText.textContent='GRID STABLE — 230V';statusText.setAttribute('fill','rgba(245,243,238,.5)');
+        sub1.textContent='Monitored continuously for spikes and dips';sub2.textContent='';
+      }else if(lt<SWITCH_AT){
+        waveLine.setAttribute('d',jitterLine(now));waveLine.setAttribute('stroke','#E24B4A');
+        const blink=Math.floor(now/150)%2===0;
+        sourceEl.textContent='GRID';sourceEl.setAttribute('fill', blink?'#E24B4A':'rgba(226,75,74,.4)');
+        statusText.textContent='VOLTAGE FLUCTUATION DETECTED';statusText.setAttribute('fill','rgba(226,75,74,.85)');
+        sub1.textContent='Grid spiked to 290V — switching to';sub2.textContent='protect your devices.';
+      }else if(lt<RESET_AT){
+        waveLine.setAttribute('d',flatLine());waveLine.setAttribute('stroke','#22C55E');
+        sourceEl.textContent='BATTERY';sourceEl.setAttribute('fill','#5B9BD5');
+        statusText.textContent='SWITCHED TO BATTERY IN 9 MS';statusText.setAttribute('fill','#22C55E');
+        sub1.textContent='Your devices stayed powered the whole';sub2.textContent='time — seamlessly.';
+      }else{
+        waveLine.setAttribute('d',flatLine());waveLine.setAttribute('stroke','#22C55E');
+        sourceEl.textContent='GRID';sourceEl.setAttribute('fill','#22C55E');
+        statusText.textContent='GRID STABLE — 230V';statusText.setAttribute('fill','rgba(245,243,238,.5)');
+        sub1.textContent='Monitored continuously for spikes and dips';sub2.textContent='';
+      }
+    }
+    requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+})();
+}
+
+</script>
+</body>
+</html>
