@@ -1,738 +1,706 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Gridge Energy — Your home's electrical brain</title>
-<meta name="description" content="Gridge is a smart electrical panel that sees every appliance in your home — without touching a single wire. NILM-powered circuit intelligence for the discerning Indian home." />
-<meta name="theme-color" content="#111210" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="apple-touch-icon" href="/favicon.svg" />
-<meta property="og:title" content="Gridge Energy — Your home's electrical brain" />
-<meta property="og:description" content="NILM-powered circuit intelligence for the discerning Indian home." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://gridgeenergy.com/" />
-<meta name="twitter:card" content="summary_large_image" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111210">
+<title>Gridge Energy — Your home. Under control.</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Syne:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap');
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#111210;color:#F5F3EE;line-height:1.55;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
 
-:root {
-  --g-black: #111210;
-  --g-dark: #1A1C1A;
-  --g-panel: #1F221F;
-  --g-glass: rgba(30,34,30,0.85);
-  --g-green: #009E5C;
-  --g-green-dim: rgba(0,158,92,0.15);
-  --g-green-glow: rgba(0,158,92,0.35);
-  --g-text: #E8EAE8;
-  --g-muted: #7A8478;
-  --g-border: rgba(255,255,255,0.07);
-  --g-border-active: rgba(0,158,92,0.4);
+:root{
+  --bg:#111210; --bg-2:#0E0F0D; --bg-3:#171815; --bg-deep:#0C0D0B;
+  --border:#2A2A25; --green:#22C55E; --green-bg:rgba(34,197,94,.07); --green-bd:rgba(34,197,94,.14);
+  --amber:#f59e0b; --warm:#F5F3EE;
+  --w50:rgba(245,243,238,.50); --w42:rgba(245,243,238,.42); --w35:rgba(245,243,238,.35);
+  --w28:rgba(245,243,238,.28); --w20:rgba(245,243,238,.20); --w14:rgba(245,243,238,.14); --w07:rgba(245,243,238,.07);
 }
 
-body {
-  background: var(--g-black);
-  color: var(--g-text);
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-  min-height: 100vh;
-  overflow-x: hidden;
+h1,h2,h3{font-family:'Syne',sans-serif;font-weight:700;line-height:1.05;letter-spacing:-.02em}
+p{font-weight:300;line-height:1.68}
+.t-label{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--green);display:block}
+.t-h1{font-size:clamp(2.2rem,4.5vw,4rem);line-height:1.08}
+.t-h1 em,.hero-title em,.t-h2 em{font-style:normal;font-weight:400;color:var(--w35)}
+.t-h2{font-size:clamp(1.6rem,2.8vw,2.5rem);line-height:1.18}
+.t-body-lg{font-size:1.05rem;line-height:1.68;color:var(--w50);font-weight:300}
+
+.container{width:100%;max-width:1120px;margin:0 auto;padding:0 2.5rem}
+.container-narrow{width:100%;max-width:720px;margin:0 auto;padding:0 2.5rem}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;background:transparent;border-bottom:1px solid transparent;transition:background .35s,border-color .35s,backdrop-filter .35s}
+.nav.solid{background:rgba(17,18,16,.94);backdrop-filter:blur(20px);border-bottom-color:var(--border)}
+.nav-inner{width:100%;max-width:1120px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:32px;height:32px;flex-shrink:0;display:block}
+.nav-logo-text{font-family:'Syne',sans-serif;font-weight:600;font-size:1.05rem;color:var(--warm);letter-spacing:-.01em;white-space:nowrap}
+.nav-logo-text em{font-style:normal;font-weight:800;color:var(--green)}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{font-size:.875rem;color:var(--w42);padding:.38rem .85rem;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap}
+.nav-links a:hover{color:var(--warm);background:var(--w07)}
+.nav-links a.active{color:var(--warm);font-weight:500}
+.nav-cta{font-size:.875rem;font-weight:500;color:var(--warm);padding:.42rem 1.1rem;border-radius:8px;background:var(--w07);border:1px solid var(--w14);white-space:nowrap}
+.nav-cta:hover{background:var(--w14)}
+
+.btn{display:inline-flex;align-items:center;gap:7px;padding:.78rem 1.6rem;border-radius:9px;font-weight:500;font-size:.9rem;cursor:pointer;border:none;text-decoration:none;transition:all .18s;white-space:nowrap}
+.btn-green{background:var(--green);color:#111210;font-weight:600}
+.btn-green:hover{background:#19a84e;transform:translateY(-1px)}
+.btn-lg{padding:.9rem 2rem;font-size:.95rem;border-radius:10px}
+.btn-text{background:none;border:none;cursor:pointer;font-size:.9rem;color:var(--w42);text-decoration:underline;text-decoration-color:var(--w14);text-underline-offset:3px}
+
+.dot{display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;flex-shrink:0;animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}
+
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:60px;background:var(--bg);border-bottom:1px solid var(--border)}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem 5rem 2.5rem;}
+@media(min-width:1120px){.hero-left{padding-left:min(calc((100vw - 1120px)/2 + 2.5rem), 280px)}}
+.hero-right{display:flex;align-items:center;justify-content:center;padding:4rem 2.5rem 4rem 4rem;background:var(--bg-2);border-left:1px solid var(--border)}
+@media(min-width:1120px){.hero-right{padding-right:min(calc((100vw - 1120px)/2 + 2.5rem), 280px)}}
+.hero-eyebrow{display:flex;align-items:center;gap:9px;margin-bottom:1.4rem}
+.hero-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.5rem,5vw,5rem);line-height:1.02;letter-spacing:-.025em;color:var(--warm);margin-bottom:1.75rem}
+.hero-sub{font-size:1.05rem;font-weight:300;color:var(--w50);max-width:420px;line-height:1.65;margin-bottom:2.25rem}
+.hero-actions{display:flex;gap:.85rem;flex-wrap:wrap;align-items:center}
+.hero-stats{display:flex;gap:2rem;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.hs-val{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;color:var(--warm);line-height:1.25;letter-spacing:-.01em}
+.hs-lbl{font-size:.76rem;color:var(--w28);margin-top:4px;font-weight:300}
+
+.panel-widget{width:100%;max-width:460px;display:flex;flex-direction:column;gap:.9rem}
+.pw-header{display:flex;justify-content:space-between;align-items:center}
+.pw-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--w20)}
+.pw-live{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:.6rem;color:var(--green)}
+
+.circuit-card{background:var(--bg-3);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem}
+.circuit-row{display:flex;align-items:center;gap:10px;padding:.3rem 0}
+.circuit-name{font-size:.8rem;color:var(--w42);flex:1;font-weight:300}
+.circuit-track{flex:2;height:2px;background:var(--w07);border-radius:2px;overflow:hidden}
+.circuit-fill{height:100%;border-radius:2px;transition:width 1.4s ease}
+.circuit-val{font-family:'DM Mono',monospace;font-size:.74rem;color:var(--w50);min-width:50px;text-align:right}
+.circuit-total{display:flex;justify-content:space-between;padding-top:.65rem;margin-top:.35rem;border-top:1px solid var(--w07)}
+.t-small{font-size:.84rem;color:var(--w28)}
+
+.ai-strip{background:var(--green-bg);border:1px solid var(--green-bd);border-radius:10px;padding:.85rem 1rem;display:flex;gap:.75rem;align-items:flex-start}
+.ai-strip-label{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);white-space:nowrap;padding-top:1px;font-weight:500}
+.ai-strip-text{font-size:.82rem;color:var(--w50);line-height:1.55;font-weight:300}
+
+.about-panel{background:var(--bg-3);border:1px solid var(--border);border-radius:16px;padding:1.75rem}
+.ap-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem}
+.ap-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--w20)}
+.ap-live{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:.6rem;color:var(--green)}
+.ap-kw{font-family:'Syne',sans-serif;font-weight:700;font-size:3rem;color:var(--warm);line-height:1}
+.ap-kw small{font-family:'DM Sans',sans-serif;font-size:1rem;color:var(--w28);font-weight:300;margin-left:3px}
+.ap-sub{font-family:'DM Mono',monospace;font-size:.66rem;color:var(--w20);margin-top:4px;margin-bottom:1.4rem}
+
+.sec{padding:6.5rem 0}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:6rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.grid-3>*{background:var(--bg)}
+.grid-3-alt>*:nth-child(2){background:var(--bg-2)}
+
+.prob-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border)}
+.prob-card{background:var(--bg);padding:2.75rem 2.25rem}
+.prob-card:nth-child(2){background:var(--bg-2)}
+.prob-num{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--w20);margin-bottom:1.5rem}
+.prob-card h3{font-size:1.1rem;color:var(--warm);margin-bottom:.65rem}
+.prob-card p{font-size:.88rem;color:var(--w42);line-height:1.74}
+.prob-stat{margin-top:2rem;padding-top:1.4rem;border-top:1px solid var(--border)}
+.prob-stat-val{font-family:'Syne',sans-serif;font-weight:700;font-size:2.4rem;color:var(--green);line-height:1}
+.prob-stat-lbl{font-size:.74rem;color:var(--w20);margin-top:5px;font-weight:300}
+
+.benefit-row{display:flex;gap:1rem;align-items:flex-start;padding:1.1rem 0;border-top:1px solid var(--border)}
+.benefit-row:last-child{border-bottom:1px solid var(--border)}
+.benefit-dot{width:5px;height:5px;background:var(--green);border-radius:50%;flex-shrink:0;margin-top:8px}
+.benefit-title{font-size:.9rem;color:var(--warm);margin-bottom:.2rem}
+.benefit-desc{font-size:.84rem;color:var(--w35);line-height:1.65}
+
+.vision-col{padding:2.75rem 2.25rem}
+.vc-num{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--w20);margin-bottom:1.25rem}
+.vc-title{font-size:1.1rem;color:var(--warm);margin-bottom:.5rem}
+.vc-desc{font-size:.86rem;color:var(--w35);line-height:1.72}
+
+.cust-card{padding:2.5rem 2.25rem}
+.cc-type{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--w20);margin-bottom:.75rem}
+.cc-name{font-size:1.2rem;color:var(--warm);margin-bottom:.6rem}
+.cc-desc{font-size:.87rem;color:var(--w42);line-height:1.7;margin-bottom:1.6rem}
+.cc-link{font-size:.84rem;color:var(--green);border-bottom:1px solid rgba(34,197,94,.25);padding-bottom:1px}
+
+.traction-bar{padding:1.4rem 0;background:var(--bg-2);border-bottom:1px solid var(--border)}
+.traction-inner{display:flex;gap:2rem;align-items:center;justify-content:center;flex-wrap:wrap}
+.traction-item{font-size:.8rem;color:var(--w28);font-weight:300}
+.traction-item strong{color:var(--w50);font-weight:400}
+.traction-sep{color:var(--border)}
+
+.cta-section{padding:8rem 0;text-align:center;background:var(--bg-deep)}
+
+footer{background:var(--bg-deep);border-top:1px solid var(--border);padding:4rem 0 2.5rem}
+.footer-brand-row{display:flex;align-items:center;gap:10px;margin-bottom:.85rem}
+.footer-mark{width:30px;height:30px;flex-shrink:0}
+.footer-brand-text{font-family:'Syne',sans-serif;font-weight:600;font-size:1.05rem;color:var(--warm)}
+.footer-brand-text em{font-style:normal;font-weight:800;color:var(--green)}
+.footer-tagline{font-size:.88rem;font-weight:300;color:var(--w28);max-width:340px}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:3rem;padding-top:1.75rem;border-top:1px solid var(--border)}
+.footer-links{display:flex;gap:1.75rem}
+.footer-links a{font-size:.82rem;color:var(--w28)}
+.footer-links a:hover{color:var(--w50)}
+.footer-copy{font-size:.75rem;color:var(--w20)}
+
+@media(max-width:680px){.nav-links{display:none}}
+@media(max-width:480px){.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{padding:4.5rem 1.5rem 3rem}
+  .hero-right{padding:3rem 1.5rem 4.5rem;border-left:none;border-top:1px solid var(--border)}
+  .hero-stats{flex-wrap:wrap;gap:1.5rem}
+  .prob-grid,.grid-2,.grid-3{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:1.25rem;text-align:center}
+  .footer-links{justify-content:center;flex-wrap:wrap}
 }
-
-.display { font-family: 'Syne', sans-serif; }
-
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  padding: 1.25rem 2rem;
-  gap: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(17,18,16,0.9);
-  border-bottom: 0.5px solid var(--g-border);
-  backdrop-filter: blur(12px);
-}
-
-.logo {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 1.2rem;
-  letter-spacing: -0.02em;
-  color: var(--g-text);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.logo-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--g-green);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(0.8); }
-}
-
-.nav-cta {
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--g-green);
-  border: 0.5px solid var(--g-border-active);
-  padding: 0.5rem 1.2rem;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: var(--g-green-dim);
-}
-
-.nav-cta:hover { background: rgba(0,158,92,0.25); }
-
-section.hero {
-  min-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 4rem 2rem 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  max-width: 1100px;
-  margin: 0 auto;
-  align-items: center;
-  width: 100%;
-}
-
-.hero-eyebrow {
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--g-green);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.hero-eyebrow::before {
-  content: '';
-  display: block;
-  width: 24px;
-  height: 0.5px;
-  background: var(--g-green);
-}
-
-h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 7vw, 3.5rem);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: var(--g-text);
-  margin-bottom: 1.5rem;
-}
-
-h1 em {
-  font-style: normal;
-  color: var(--g-green);
-}
-
-.hero-sub {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--g-muted);
-  max-width: 420px;
-  margin-bottom: 2.5rem;
-}
-
-.cta-row {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.btn-primary {
-  background: var(--g-green);
-  color: #fff;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  padding: 0.85rem 2rem;
-  border: none;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-primary:hover { background: #00b568; }
-
-.btn-ghost {
-  font-size: 0.8rem;
-  color: var(--g-muted);
-  cursor: pointer;
-  letter-spacing: 0.04em;
-  transition: color 0.2s;
-}
-
-.btn-ghost:hover { color: var(--g-text); }
-
-.hero-stat-row {
-  display: flex;
-  gap: 2rem;
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 0.5px solid var(--g-border);
-}
-
-.stat { }
-.stat-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--g-text);
-}
-
-.stat-label {
-  font-size: 0.72rem;
-  color: var(--g-muted);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-top: 2px;
-}
-
-.viz-panel {
-  background: var(--g-panel);
-  border: 0.5px solid var(--g-border);
-  border-radius: 4px;
-  padding: 1.5rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.viz-panel::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--g-green), transparent);
-  opacity: 0.6;
-}
-
-.viz-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--g-muted);
-  margin-bottom: 1.2rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.live-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--g-green);
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-canvas#energyViz {
-  width: 100%;
-  height: 260px;
-  display: block;
-}
-
-.appliance-list {
-  margin-top: 1rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-}
-
-.appliance-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 10px;
-  background: rgba(255,255,255,0.03);
-  border-radius: 2px;
-  border: 0.5px solid var(--g-border);
-}
-
-.appliance-name {
-  font-size: 0.72rem;
-  color: var(--g-muted);
-}
-
-.appliance-watt {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--g-green);
-}
-
-section.product {
-  padding: 5rem 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.section-tag {
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--g-green);
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.section-tag::before {
-  content: '';
-  width: 18px;
-  height: 0.5px;
-  background: var(--g-green);
-}
-
-h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin-bottom: 1rem;
-}
-
-.section-sub {
-  font-size: 0.95rem;
-  color: var(--g-muted);
-  line-height: 1.7;
-  max-width: 480px;
-  margin-bottom: 3rem;
-}
-
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--g-border);
-  border: 0.5px solid var(--g-border);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.feature-card {
-  background: var(--g-dark);
-  padding: 2rem 1.5rem;
-  transition: background 0.2s;
-}
-
-.feature-card:hover { background: var(--g-panel); }
-
-.feature-icon {
-  width: 32px;
-  height: 32px;
-  margin-bottom: 1.2rem;
-  color: var(--g-green);
-}
-
-.feature-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: var(--g-text);
-  letter-spacing: -0.01em;
-}
-
-.feature-desc {
-  font-size: 0.82rem;
-  color: var(--g-muted);
-  line-height: 1.6;
-}
-
-section.waitlist {
-  padding: 5rem 2rem 7rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.waitlist-inner {
-  max-width: 560px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-}
-
-.waitlist-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(0,158,92,0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.waitlist-form {
-  display: flex;
-  gap: 8px;
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.waitlist-input {
-  flex: 1;
-  background: var(--g-panel);
-  border: 0.5px solid var(--g-border);
-  color: var(--g-text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem;
-  padding: 0.85rem 1.2rem;
-  border-radius: 2px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.waitlist-input:focus {
-  border-color: var(--g-border-active);
-}
-
-.waitlist-input::placeholder { color: var(--g-muted); }
-
-.waitlist-note {
-  font-size: 0.72rem;
-  color: var(--g-muted);
-  letter-spacing: 0.04em;
-}
-
-.count-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--g-green-dim);
-  border: 0.5px solid var(--g-border-active);
-  border-radius: 2px;
-  padding: 4px 12px;
-  font-size: 0.72rem;
-  color: var(--g-green);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-}
-
-footer {
-  padding: 1.5rem 2rem;
-  border-top: 0.5px solid var(--g-border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--g-muted);
-  font-size: 0.75rem;
-}
-
-.footer-logo {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--g-muted);
-}
-
-@media (max-width: 768px) {
-  nav { padding: 1rem 1.25rem; }
-  .logo { font-size: 1.05rem; }
-  .nav-cta { padding: 0.45rem 0.9rem; font-size: 0.72rem; letter-spacing: 0.06em; }
-  section.hero { padding: 2.5rem 1.25rem 2rem; min-height: auto; }
-  .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .hero-sub { font-size: 0.95rem; }
-  .feature-grid { grid-template-columns: 1fr; }
-  .hero-stat-row { gap: 1.25rem; flex-wrap: wrap; margin-top: 2rem; padding-top: 1.5rem; }
-  .stat { flex: 1 1 30%; min-width: 90px; }
-  .stat-num { font-size: 1.2rem; }
-  .stat-label { font-size: 0.65rem; }
-  section.product { padding: 3.5rem 1.25rem; }
-  section.waitlist { padding: 3.5rem 1.25rem 5rem; }
-  .waitlist-form { flex-direction: column; }
-  .viz-panel { padding: 1rem; }
-  canvas#energyViz { height: 200px; }
-  footer {
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
-    padding: 1.5rem 1.25rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .appliance-list { grid-template-columns: 1fr; }
-  .hero-stat-row { gap: 1rem; }
+@media(min-width:680px) and (max-width:900px){
+  .sec{padding:5rem 0}
+  .hero-title{font-size:clamp(2.4rem,5vw,3.4rem)}
 }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo">
-    <div class="logo-dot"></div>
-    Gridge Energy
+<!-- Reusable animated hex logo. `id` must be unique per instance on the page. -->
+<svg id="logo-def-source" style="display:none"></svg>
+
+<!-- ── NAV ── -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <svg class="logo-mark" viewBox="0 0 40 40" data-logo-id="nav">
+        <g transform="translate(20,20) scale(0.282)">
+          <line data-id="seg1" x1="0" y1="0" x2="0" y2="-41" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg2" x1="0" y1="0" x2="35.5" y2="-20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg3" x1="0" y1="0" x2="35.5" y2="20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg4" x1="0" y1="0" x2="0" y2="41" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg5" x1="0" y1="0" x2="-35.5" y2="20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg6" x1="0" y1="0" x2="-35.5" y2="-20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <polygon data-id="hex" points="0,-41 35.5,-20.5 35.5,20.5 0,41 -35.5,20.5 -35.5,-20.5" fill="none" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <circle cx="0" cy="0" r="16" fill="#22C55E">
+            <animate attributeName="opacity" values="0.5;0.85;0.5" dur="2.4s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="0" cy="0" r="7" fill="#111210"/>
+        </g>
+      </svg>
+      <span class="nav-logo-text">Gridge <em>Energy</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="product.html">Product</a>
+      <a href="technology.html">Technology</a>
+      <a href="ecosystem.html">Ecosystem</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Join Waitlist</a>
   </div>
-  <div class="nav-cta" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join Waitlist</div>
 </nav>
 
+<!-- ── HERO ── -->
 <section class="hero">
-  <div class="hero-grid">
-    <div class="hero-left">
-      <div class="hero-eyebrow">Smart Electrical Panel</div>
-      <h1 class="display">Your home's<br><em>electrical brain.</em></h1>
-      <p class="hero-sub">Gridge sees every appliance in your home — without touching a single wire. NILM-powered circuit intelligence for the discerning Indian home.</p>
-      <div class="cta-row">
-        <button class="btn-primary" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Request Early Access</button>
-        <span class="btn-ghost" onclick="document.getElementById('product').scrollIntoView({behavior:'smooth'})">See how it works →</span>
+  <div class="hero-left">
+    <div class="reveal">
+      <svg width="64" height="64" viewBox="0 0 142 142">
+        <g transform="translate(71,71)">
+          <line id="hseg1" x1="0" y1="0" x2="0" y2="-41" stroke="#22C55E" stroke-width="1.4" opacity="0.28"/>
+          <line id="hseg2" x1="0" y1="0" x2="35.5" y2="-20.5" stroke="#22C55E" stroke-width="1.4" opacity="0.28"/>
+          <line id="hseg3" x1="0" y1="0" x2="35.5" y2="20.5" stroke="#22C55E" stroke-width="1.4" opacity="0.28"/>
+          <line id="hseg4" x1="0" y1="0" x2="0" y2="41" stroke="#22C55E" stroke-width="1.4" opacity="0.28"/>
+          <line id="hseg5" x1="0" y1="0" x2="-35.5" y2="20.5" stroke="#22C55E" stroke-width="1.4" opacity="0.28"/>
+          <line id="hseg6" x1="0" y1="0" x2="-35.5" y2="-20.5" stroke="#22C55E" stroke-width="1.4" opacity="0.28"/>
+          <polygon id="hhex" points="0,-41 35.5,-20.5 35.5,20.5 0,41 -35.5,20.5 -35.5,-20.5" fill="none" stroke="#22C55E" stroke-width="1.4" opacity="0.28"/>
+          <circle cx="0" cy="0" r="9" fill="#22C55E">
+            <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2.4s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="0" cy="0" r="4.6" fill="#22C55E"/>
+          <circle cx="0" cy="0" r="2" fill="#111210"/>
+          <animate href="#hhex" attributeName="opacity" values="0.28;0.7;0.28" dur="2.4s" repeatCount="indefinite"/>
+          <animate href="#hseg1" attributeName="opacity" values="0.28;0.65;0.28" dur="2.4s" repeatCount="indefinite"/>
+          <animate href="#hseg2" attributeName="opacity" values="0.28;0.65;0.28" dur="2.6s" repeatCount="indefinite"/>
+          <animate href="#hseg3" attributeName="opacity" values="0.28;0.65;0.28" dur="2.2s" repeatCount="indefinite"/>
+          <animate href="#hseg4" attributeName="opacity" values="0.28;0.65;0.28" dur="2.5s" repeatCount="indefinite"/>
+          <animate href="#hseg5" attributeName="opacity" values="0.28;0.65;0.28" dur="2.3s" repeatCount="indefinite"/>
+          <animate href="#hseg6" attributeName="opacity" values="0.28;0.65;0.28" dur="2.7s" repeatCount="indefinite"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hero-eyebrow reveal">
+      <span class="dot"></span>
+      <span class="t-label" style="display:inline">Validating our prototype · Bengaluru</span>
+    </div>
+    <h1 class="hero-title reveal d1">Your home.<br><em>Under control.</em></h1>
+    <p class="hero-sub reveal d2">Gridge sits at your distribution board and tells you exactly what's using power, what's wasting it, and what's about to fail — before it does.</p>
+    <div class="hero-actions reveal d3">
+      <a href="contact.html" class="btn btn-green btn-lg">Request Early Access</a>
+      <button class="btn-text" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">See how it works →</button>
+    </div>
+    <div class="hero-stats reveal d4">
+      <div><div class="hs-val">Know before it fails</div><div class="hs-lbl">Faults caught before damage is done</div></div>
+      <div><div class="hs-val">Control from anywhere</div><div class="hs-lbl">Your home listens from your phone</div></div>
+      <div><div class="hs-val">Always watching</div><div class="hs-lbl">Every circuit, every second</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="panel-widget reveal d2">
+      <div class="pw-header">
+        <span class="pw-label">Live energy flow</span>
+        <span class="pw-live"><span class="dot"></span>Active</span>
       </div>
-      <div class="hero-stat-row">
-        <div class="stat">
-          <div class="stat-num display">47+</div>
-          <div class="stat-label">Appliances detected</div>
+
+      <div style="background:var(--bg-3);border:1px solid var(--border);border-radius:12px;padding:.6rem .4rem .3rem">
+        <svg width="100%" viewBox="0 0 430 300" role="img" style="display:block">
+          <title>Live energy flow between solar, grid, and home circuits</title>
+          <desc>The Gridge panel core glows, then a dot travels in from solar and grid, then the core glows again and dots travel out to each circuit, showing direction purely through motion</desc>
+
+          <path id="p-solar" d="M215,45 L215,150" fill="none" stroke="#F2C849" stroke-width=".8" opacity="0.12"/>
+          <path id="p-grid" d="M306,98 L215,150" fill="none" stroke="#5B9BD5" stroke-width=".8" opacity="0.12"/>
+          <path id="p-ac" d="M215,150 L124,98" fill="none" stroke="#22C55E" stroke-width=".8" opacity="0.12"/>
+          <path id="p-ev" d="M215,150 L306,202" fill="none" stroke="#f59e0b" stroke-width=".8" opacity="0.12"/>
+          <path id="p-kt" d="M215,150 L215,255" fill="none" stroke="#22C55E" stroke-width=".8" opacity="0.12"/>
+          <path id="p-lt" d="M215,150 L124,202" fill="none" stroke="#E8B563" stroke-width=".8" opacity="0.12"/>
+
+          <circle id="dot-solar" r="2.6" fill="#F2C849" opacity="0"/>
+          <circle id="dot-grid" r="2.6" fill="#5B9BD5" opacity="0"/>
+          <circle id="dot-ac" r="2.6" fill="#22C55E" opacity="0"/>
+          <circle id="dot-ev" r="2.6" fill="#f59e0b" opacity="0"/>
+          <circle id="dot-kt" r="2.6" fill="#22C55E" opacity="0"/>
+          <circle id="dot-lt" r="2.6" fill="#E8B563" opacity="0"/>
+
+          <g transform="translate(215,150)">
+            <polygon points="0,-17 15,-8.5 15,8.5 0,17 -15,8.5 -15,-8.5" fill="#0E0F0D" stroke="#22C55E" stroke-width=".8" opacity="0.5"/>
+            <circle id="core-glow" cx="0" cy="0" r="13" fill="#22C55E" opacity="0"/>
+            <circle id="core-dot" cx="0" cy="0" r="5.5" fill="#22C55E"/>
+            <circle cx="0" cy="0" r="2.4" fill="#0E0F0D"/>
+          </g>
+
+          <circle id="node-solar" cx="215" cy="45" r="8.5" fill="#171815" stroke="#F2C849" stroke-width=".8"/>
+          <circle id="node-grid" cx="306" cy="98" r="8.5" fill="#171815" stroke="#5B9BD5" stroke-width=".8"/>
+          <circle id="node-ac" cx="124" cy="98" r="8.5" fill="#171815" stroke="#22C55E" stroke-width=".8"/>
+          <circle id="node-ev" cx="306" cy="202" r="8.5" fill="#171815" stroke="#f59e0b" stroke-width=".8"/>
+          <circle id="node-kt" cx="215" cy="255" r="8.5" fill="#171815" stroke="#22C55E" stroke-width=".8"/>
+          <circle id="node-lt" cx="124" cy="202" r="8.5" fill="#171815" stroke="#E8B563" stroke-width=".8"/>
+
+          <text x="215" y="24" text-anchor="middle" style="fill:rgba(245,243,238,.5);font-size:9px;font-family:'DM Sans',sans-serif">Solar</text>
+          <text id="fv-solar" x="215" y="65" text-anchor="middle" style="fill:#F5F3EE;font-size:9.5px;font-family:'DM Mono',monospace">1.40 kW</text>
+
+          <text x="345" y="92" text-anchor="middle" style="fill:rgba(245,243,238,.5);font-size:9px;font-family:'DM Sans',sans-serif">Grid import</text>
+          <text id="fv-grid" x="345" y="115" text-anchor="middle" style="fill:#F5F3EE;font-size:9.5px;font-family:'DM Mono',monospace">2.35 kW</text>
+
+          <text x="86" y="92" text-anchor="middle" style="fill:rgba(245,243,238,.5);font-size:9px;font-family:'DM Sans',sans-serif">Living room AC</text>
+          <text id="fv-ac" x="86" y="115" text-anchor="middle" style="fill:#F5F3EE;font-size:9.5px;font-family:'DM Mono',monospace">1.82 kW</text>
+
+          <text x="345" y="218" text-anchor="middle" style="fill:rgba(245,243,238,.5);font-size:9px;font-family:'DM Sans',sans-serif">EV charger</text>
+          <text id="fv-ev" x="345" y="194" text-anchor="middle" style="fill:#F5F3EE;font-size:9.5px;font-family:'DM Mono',monospace">1.20 kW</text>
+
+          <text x="215" y="280" text-anchor="middle" style="fill:rgba(245,243,238,.5);font-size:9px;font-family:'DM Sans',sans-serif">Kitchen</text>
+          <text id="fv-kt" x="215" y="240" text-anchor="middle" style="fill:#F5F3EE;font-size:9.5px;font-family:'DM Mono',monospace">0.62 kW</text>
+
+          <text x="86" y="218" text-anchor="middle" style="fill:rgba(245,243,238,.5);font-size:9px;font-family:'DM Sans',sans-serif">Lighting</text>
+          <text id="fv-lt" x="86" y="194" text-anchor="middle" style="fill:#F5F3EE;font-size:9.5px;font-family:'DM Mono',monospace">0.11 kW</text>
+        </svg>
+      </div>
+
+      <div class="circuit-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+          <span style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--w20)">Circuit Monitor</span>
+          <span id="ts" style="font-family:'DM Mono',monospace;font-size:.58rem;color:rgba(34,197,94,.6)">Live</span>
         </div>
-        <div class="stat">
-          <div class="stat-num display">2.3kW</div>
-          <div class="stat-label">Avg waste identified</div>
+        <div class="circuit-row"><span class="circuit-name">Living Room AC</span><div class="circuit-track"><div class="circuit-fill" id="b-ac" style="width:82%;background:#22C55E"></div></div><span class="circuit-val" id="v-ac">1.82 kW</span></div>
+        <div class="circuit-row"><span class="circuit-name">EV Charger</span><div class="circuit-track"><div class="circuit-fill" id="b-ev" style="width:55%;background:#f59e0b"></div></div><span class="circuit-val" id="v-ev" style="color:#f59e0b">1.20 kW</span></div>
+        <div class="circuit-row"><span class="circuit-name">Kitchen</span><div class="circuit-track"><div class="circuit-fill" id="b-kt" style="width:28%;background:#22C55E"></div></div><span class="circuit-val" id="v-kt">0.62 kW</span></div>
+        <div class="circuit-row"><span class="circuit-name">Lighting</span><div class="circuit-track"><div class="circuit-fill" id="b-lt" style="width:10%;background:rgba(255,210,40,.7)"></div></div><span class="circuit-val" id="v-lt" style="color:rgba(255,210,40,.8)">0.11 kW</span></div>
+        <div class="circuit-total">
+          <span class="t-small">Total Active</span>
+          <span id="v-tot" style="font-family:'DM Mono',monospace;font-size:.8rem;color:var(--w50)">4.20 kW</span>
         </div>
-        <div class="stat">
-          <div class="stat-num display">₹0</div>
-          <div class="stat-label">Rewiring needed</div>
-        </div>
+      </div>
+
+      <div class="ai-strip">
+        <span class="ai-strip-label">AI</span>
+        <span class="ai-strip-text" id="ai-txt">AC shifted to off-peak schedule. Saving ₹380 automatically this week.</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── TRACTION ── -->
+<div class="traction-bar reveal">
+  <div class="container">
+    <div class="traction-inner">
+      <div class="traction-item">Builder LOIs signed — <strong>multiple top-tier developers</strong></div>
+      <span class="traction-sep">·</span>
+      <div class="traction-item"><strong>DPIIT Startup India</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROBLEM ── -->
+<section class="sec" style="background:var(--bg);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="grid-2" style="align-items:end;margin-bottom:4rem">
+      <div class="reveal">
+        <div class="t-label" style="margin-bottom:1.25rem">The Problem</div>
+        <h2 class="t-h1">India's homes consume 30% of national electricity — <em>with zero visibility.</em></h2>
+      </div>
+      <div class="reveal d1">
+        <p class="t-body-lg">The distribution board in every Indian home is a mechanical relic of the 1920s. It cannot measure, communicate, or respond. This silence costs India billions every year in avoidable infrastructure spending.</p>
       </div>
     </div>
-
-    <div class="hero-right">
-      <div class="viz-panel">
-        <div class="viz-label"><span class="live-dot"></span> Live home energy map</div>
-        <canvas id="energyViz" width="400" height="260"></canvas>
-        <div class="appliance-list" id="appList"></div>
+  </div>
+  <div class="container">
+    <div class="prob-grid">
+      <div class="prob-card reveal">
+        <div class="prob-num">01 — The dumb board</div>
+        <h3>A century without innovation</h3>
+        <p>Every Indian home runs on 100-year-old mechanical technology. No data, no control, no intelligence whatsoever.</p>
+        <div class="prob-stat"><div class="prob-stat-val">100 yrs</div><div class="prob-stat-lbl">Without meaningful innovation</div></div>
+      </div>
+      <div class="prob-card reveal d1">
+        <div class="prob-num">02 — The grid crisis</div>
+        <h3>The peak CAPEX spiral</h3>
+        <p>India sizes its entire power infrastructure for a 3–4 hour daily peak. DISCOMs spend billions on CAPEX that sits idle 20+ hours a day.</p>
+        <div class="prob-stat"><div class="prob-stat-val">$15B+</div><div class="prob-stat-lbl">Avoidable grid infrastructure cost</div></div>
+      </div>
+      <div class="prob-card reveal d2">
+        <div class="prob-num">03 — The EV crisis</div>
+        <h3>The electric vehicle time bomb</h3>
+        <p>One EV fast charger adds the load of 50–70 households — threatening infrastructure built for a completely different era.</p>
+        <div class="prob-stat"><div class="prob-stat-val">16×</div><div class="prob-stat-lbl">Load impact of a single EV fast charger</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="product" id="product">
-  <div class="section-tag">How it works</div>
-  <h2 class="display">Calm intelligence.<br>Wired in.</h2>
-  <p class="section-sub">One panel. No app clutter. Gridge sits at your distribution board and reads the electrical signature of every device — passively, continuously, precisely.</p>
-
-  <div class="feature-grid">
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 32 32" fill="none">
-        <rect x="4" y="4" width="10" height="10" stroke="currentColor" stroke-width="1" rx="1"/>
-        <rect x="18" y="4" width="10" height="10" stroke="currentColor" stroke-width="1" rx="1"/>
-        <rect x="4" y="18" width="10" height="10" stroke="currentColor" stroke-width="1" rx="1"/>
-        <rect x="18" y="18" width="10" height="10" stroke="currentColor" stroke-width="1" rx="1"/>
-        <circle cx="9" cy="9" r="2" fill="currentColor" opacity="0.6"/>
-        <circle cx="23" cy="9" r="2" fill="currentColor" opacity="0.6"/>
-        <circle cx="9" cy="23" r="2" fill="currentColor" opacity="1"/>
-        <circle cx="23" cy="23" r="2" fill="currentColor" opacity="0.3"/>
-      </svg>
-      <div class="feature-title">NILM Detection</div>
-      <div class="feature-desc">Non-intrusive load monitoring identifies every appliance by its unique electrical fingerprint. AC, fridge, water heater — all mapped automatically.</div>
-    </div>
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 32 32" fill="none">
-        <path d="M6 26 L6 10 L14 6 L22 10 L26 8 L26 26" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/>
-        <path d="M6 18 L14 14 L22 18 L26 16" stroke="currentColor" stroke-width="1" opacity="0.5"/>
-        <circle cx="14" cy="6" r="1.5" fill="currentColor"/>
-        <circle cx="22" cy="10" r="1.5" fill="currentColor" opacity="0.6"/>
-      </svg>
-      <div class="feature-title">Circuit-Level Insight</div>
-      <div class="feature-desc">Real-time visibility into every circuit. Spot anomalies, predict failures, and optimize load distribution — before problems become bills.</div>
-    </div>
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 32 32" fill="none">
-        <path d="M16 4 L16 12 M12 8 L16 4 L20 8" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/>
-        <rect x="8" y="12" width="16" height="12" rx="1" stroke="currentColor" stroke-width="1"/>
-        <path d="M12 18 L14 16 L17 20 L19 17 L21 18" stroke="currentColor" stroke-width="0.8" opacity="0.7"/>
-        <path d="M11 26 L11 28 M21 26 L21 28" stroke="currentColor" stroke-width="1"/>
-      </svg>
-      <div class="feature-title">Silent Automation</div>
-      <div class="feature-desc">Schedule, protect, and automate — from the panel itself. No subscription. No cloud dependency. Control stays in your home.</div>
+<!-- ── ABOUT ── -->
+<section id="about" class="sec" style="background:var(--bg-2);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="grid-2" style="align-items:start">
+      <div class="reveal">
+        <div class="t-label" style="margin-bottom:1.25rem">About Gridge</div>
+        <h2 class="t-h2">Calm intelligence.<br><em>Wired in.</em></h2>
+        <p class="t-body-lg" style="margin-top:1.5rem">One panel. No app clutter. Gridge sits at your distribution board and reads the electrical signature of every device — passively, continuously, precisely.</p>
+        <p class="t-body-lg" style="margin-top:.75rem">We don't add sensors to old hardware. We replace it entirely — with something built for the present and ready for what's next.</p>
+        <div style="margin-top:2.5rem">
+          <div class="benefit-row"><div class="benefit-dot"></div><div><div class="benefit-title">Appliance Detection</div><div class="benefit-desc">Identifies every appliance by its unique electrical fingerprint — AC, fridge, water heater — all mapped automatically.</div></div></div>
+          <div class="benefit-row"><div class="benefit-dot"></div><div><div class="benefit-title">Circuit-Level Insight</div><div class="benefit-desc">Real-time visibility into every circuit. Spot anomalies, predict failures, and optimise load distribution before problems become bills.</div></div></div>
+          <div class="benefit-row"><div class="benefit-dot"></div><div><div class="benefit-title">Silent Automation</div><div class="benefit-desc">Schedule, protect, and automate — from the panel itself. No subscription required. Control stays in your home.</div></div></div>
+          <div class="benefit-row"><div class="benefit-dot"></div><div><div class="benefit-title">Grid-Responsive by Design</div><div class="benefit-desc">Gridge panels respond to grid signals in real time — enabling demand response and future energy market participation.</div></div></div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="about-panel">
+          <div class="ap-header">
+            <span class="ap-label">Gridge Panel · Live</span>
+            <span class="ap-live"><span class="dot"></span>Active</span>
+          </div>
+          <div class="ap-kw">4.2 <small>kW</small></div>
+          <div class="ap-sub">14 circuits · All nominal</div>
+          <div class="ai-strip" style="margin-bottom:1.4rem">
+            <span class="ai-strip-label">AI Insight</span>
+            <span class="ai-strip-text">AC shifted to off-peak schedule. Saving ₹380 automatically this week.</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <div class="circuit-row"><span class="circuit-name">Living Room AC</span><div class="circuit-track"><div class="circuit-fill" style="width:82%;background:#22C55E"></div></div><span class="circuit-val">1.82 kW</span></div>
+            <div class="circuit-row"><span class="circuit-name">EV Charger</span><div class="circuit-track"><div class="circuit-fill" style="width:55%;background:#f59e0b"></div></div><span class="circuit-val" style="color:#f59e0b">1.20 kW</span></div>
+            <div class="circuit-row"><span class="circuit-name">Kitchen</span><div class="circuit-track"><div class="circuit-fill" style="width:28%;background:#22C55E"></div></div><span class="circuit-val">0.62 kW</span></div>
+            <div class="circuit-row"><span class="circuit-name">Lighting</span><div class="circuit-track"><div class="circuit-fill" style="width:10%;background:rgba(255,210,40,.7)"></div></div><span class="circuit-val" style="color:rgba(255,210,40,.8)">0.11 kW</span></div>
+          </div>
+          <div class="circuit-total" style="margin-top:.85rem;padding-top:.75rem;border-top:1px solid var(--w07)">
+            <span class="t-small">Total Active</span>
+            <span style="font-family:'DM Mono',monospace;font-size:.8rem;color:var(--w50)">4.20 kW</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="waitlist" id="waitlist">
-  <div class="waitlist-glow"></div>
-  <div class="waitlist-inner">
-    <div class="count-badge"><span class="live-dot"></span> 40 homes on early list</div>
-    <h2 class="display">Built for homes that<br>demand more.</h2>
-    <p class="hero-sub" style="margin: 1rem auto 0; text-align:center;">Gridge is currently in limited pilot in Hyderabad and Bangalore. Join the waitlist for early access and founding-member pricing.</p>
-    <form name="waitlist" method="POST" data-netlify="true" 
-  class="waitlist-form">
-  <input type="hidden" name="form-name" value="waitlist" />
-  <input class="waitlist-input" type="email" name="email" 
-    placeholder="your@email.com" required />
-  <button type="submit" class="btn-primary">Join Waitlist</button>
-</form>
-    <div class="waitlist-note" id="waitlistMsg">No spam. No pressure. We'll reach out when your city goes live.</div>
+<!-- ── VISION ── -->
+<section class="sec" style="background:var(--bg);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div style="text-align:center;max-width:620px;margin:0 auto 4.5rem" class="reveal">
+      <div class="t-label" style="margin-bottom:1.25rem">Our Vision</div>
+      <h2 class="t-h2">A future where every home<br>is an intelligent grid asset.</h2>
+      <p class="t-body-lg" style="margin-top:1rem">Building the demand-side OS for India's power grid — starting with the smart panel, scaling to every connected building.</p>
+    </div>
+    <div class="grid-3 grid-3-alt">
+      <div class="vision-col reveal">
+        <div class="vc-num">01 — Now</div>
+        <div class="vc-title">Homes as nodes</div>
+        <div class="vc-desc">Every Gridge-enabled home becomes a connected, bidirectional energy node — visible and controllable for the first time.</div>
+      </div>
+      <div class="vision-col reveal d1">
+        <div class="vc-num">02 — Tomorrow</div>
+        <div class="vc-title">Grid as software</div>
+        <div class="vc-desc">Real-time visibility transforms India's dumb grid into a responsive, efficient, software-defined system.</div>
+      </div>
+      <div class="vision-col reveal d2">
+        <div class="vc-num">03 — Future</div>
+        <div class="vc-title">Energy as a market</div>
+        <div class="vc-desc">Tomorrow's grid lets homes trade flexibility and participate directly in India's clean energy economy.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CUSTOMERS ── -->
+<section class="sec" style="background:var(--bg-2);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="grid-2" style="align-items:end;margin-bottom:4rem">
+      <div class="reveal">
+        <div class="t-label" style="margin-bottom:1.25rem">Who We Serve</div>
+        <h2 class="t-h2">Built for homes<br>that demand more.</h2>
+      </div>
+      <div class="reveal d1">
+        <p class="t-body-lg">One panel, three stakeholders — each unlocking distinct value, all aligned toward India's smart grid future.</p>
+        <a href="ecosystem.html" class="btn-text" style="display:inline-block;margin-top:1.5rem">Explore the ecosystem →</a>
+      </div>
+    </div>
+    <div class="grid-3 grid-3-alt">
+      <div class="cust-card reveal">
+        <div class="cc-type">Builders & Developers</div>
+        <div class="cc-name">Real estate, reimagined.</div>
+        <div class="cc-desc">Specified at construction — part of the building's core infrastructure. A genuine differentiator for premium launches with zero acquisition overhead.</div>
+        <a href="ecosystem.html" class="cc-link">Learn more →</a>
+      </div>
+      <div class="cust-card reveal d1">
+        <div class="cc-type">DISCOMs & Utilities</div>
+        <div class="cc-name">The missing physical layer.</div>
+        <div class="cc-desc">Physical endpoints in every home that make demand response real at scale — automated, via API, with no homeowner action needed.</div>
+        <a href="ecosystem.html" class="cc-link">Learn more →</a>
+      </div>
+      <div class="cust-card reveal d2">
+        <div class="cc-type">Homeowners</div>
+        <div class="cc-name">Your home, in control.</div>
+        <div class="cc-desc">See exactly where every rupee of your electricity bill goes — and let Gridge's AI automatically optimise it for you.</div>
+        <a href="ecosystem.html" class="cc-link">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <div class="container-narrow" style="text-align:center">
+    <div class="reveal">
+      <div class="t-label" style="text-align:center;margin-bottom:1.25rem">Join Gridge</div>
+      <h2 class="t-h2" style="margin-bottom:1.25rem">Built for homes that<br><em>demand more.</em></h2>
+      <p class="t-body-lg" style="max-width:400px;margin:0 auto">Gridge is currently validating its prototype in Bengaluru. Join the waitlist for early access and founding-member pricing.</p>
+      <div style="display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;align-items:center;margin-top:2.75rem">
+        <a href="contact.html" class="btn btn-green btn-lg">Join Waitlist</a>
+        <a href="product.html" class="btn-text">See how it works →</a>
+      </div>
+      <p style="text-align:center;font-size:.8rem;color:var(--w20);margin-top:1.25rem;font-weight:300">No spam. No pressure. We'll reach out when your city goes live.</p>
+    </div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-logo">Gridge Energy</div>
-  <div>© 2025 · Hyderabad, India · gridgeenergy.com</div>
+  <div class="container">
+    <div>
+      <div class="footer-brand-row">
+        <svg class="footer-mark" viewBox="0 0 40 40" data-logo-id="footer">
+          <g transform="translate(20,20) scale(0.282)">
+            <line data-id="seg1" x1="0" y1="0" x2="0" y2="-41" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg2" x1="0" y1="0" x2="35.5" y2="-20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg3" x1="0" y1="0" x2="35.5" y2="20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg4" x1="0" y1="0" x2="0" y2="41" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg5" x1="0" y1="0" x2="-35.5" y2="20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg6" x1="0" y1="0" x2="-35.5" y2="-20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <polygon data-id="hex" points="0,-41 35.5,-20.5 35.5,20.5 0,41 -35.5,20.5 -35.5,-20.5" fill="none" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <circle cx="0" cy="0" r="16" fill="#22C55E">
+              <animate attributeName="opacity" values="0.5;0.85;0.5" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="0" cy="0" r="7" fill="#111210"/>
+          </g>
+        </svg>
+        <span class="footer-brand-text">Gridge <em>Energy</em></span>
+      </div>
+      <div class="footer-tagline">Smarter homes. Lighter bills. Safer families.</div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="product.html">Product</a>
+        <a href="technology.html">Technology</a>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-copy">© 2026 Gridge Energy · Bengaluru, India · gridgeenergy.com</div>
+    </div>
+  </div>
 </footer>
 
 <script>
-function handleWaitlist() {
-  const email = document.getElementById('emailInput').value;
-  const msg = document.getElementById('waitlistMsg');
-  if (email && email.includes('@')) {
-    msg.style.color = '#009E5C';
-    msg.textContent = '✓ You\'re on the list. We\'ll be in touch.';
-    document.getElementById('emailInput').value = '';
-  } else {
-    msg.style.color = '#E24B4A';
-    msg.textContent = 'Please enter a valid email.';
-  }
+/* Respect reduced-motion preference for all continuous/decorative animation below */
+const REDUCE_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(REDUCE_MOTION){
+  document.querySelectorAll('svg').forEach(svg=>{ if(svg.pauseAnimations) svg.pauseAnimations(); });
 }
 
-const appliances = [
-  { name: 'AC — Master BR', watts: 1840, active: true },
-  { name: 'Water Heater', watts: 2000, active: true },
-  { name: 'Refrigerator', watts: 180, active: true },
-  { name: 'Washing Machine', watts: 520, active: false },
-  { name: 'Microwave', watts: 900, active: false },
-  { name: 'EV Charger', watts: 3300, active: false },
-];
+/* Nav scroll */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('solid',window.scrollY>20),{passive:true});
 
-function renderAppliances() {
-  const list = document.getElementById('appList');
-  list.innerHTML = appliances.slice(0, 4).map(a => `
-    <div class="appliance-item">
-      <span class="appliance-name">${a.name}</span>
-      <span class="appliance-watt" style="color:${a.active ? '#009E5C' : '#7A8478'}">${a.watts}W</span>
-    </div>
-  `).join('');
+/* Scroll reveal */
+const revealEls=document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(entries=>entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
+  }),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+  revealEls.forEach(el=>io.observe(el));
+  setTimeout(()=>revealEls.forEach(el=>el.classList.add('visible')),2500);
+}else{
+  revealEls.forEach(el=>el.classList.add('visible'));
 }
-renderAppliances();
 
-const canvas = document.getElementById('energyViz');
-const ctx = canvas.getContext('2d');
-const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-function sizeCanvas() {
-  const cssW = canvas.offsetWidth || 400;
-  const cssH = canvas.offsetHeight || 260;
-  canvas.width = cssW * dpr;
-  canvas.height = cssH * dpr;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-}
-sizeCanvas();
-window.addEventListener('resize', sizeCanvas);
-
-let t = 0;
-const waves = appliances.filter(a => a.active);
-const colors = ['#009E5C', '#00c970', '#4fd4a0'];
-
-function drawViz() {
-  const W = canvas.width / dpr, H = canvas.height / dpr;
-  ctx.clearRect(0, 0, W, H);
-
-  const gridAlpha = 0.06;
-  ctx.strokeStyle = `rgba(255,255,255,${gridAlpha})`;
-  ctx.lineWidth = 0.5;
-  const gridStep = W < 360 ? 28 : 40;
-  for (let x = 0; x < W; x += gridStep) {
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
-  }
-  for (let y = 0; y < H; y += gridStep) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-  }
-
-  waves.forEach((app, i) => {
-    const freq = 0.018 + i * 0.006;
-    const amp = Math.min(22 + i * 8, H * 0.18);
-    const yBase = H * (0.35 + i * 0.22);
-    const speed = 0.8 + i * 0.3;
-
-    ctx.beginPath();
-    for (let x = 0; x < W; x++) {
-      const noise = Math.sin(x * 0.1 + t * speed * 0.7) * 3;
-      const y = yBase + Math.sin(x * freq + t * speed) * amp + noise;
-      x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    }
-    ctx.strokeStyle = colors[i % colors.length];
-    ctx.lineWidth = 1.5;
-    ctx.globalAlpha = 0.8;
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-
-    ctx.font = '9px DM Sans, sans-serif';
-    ctx.fillStyle = colors[i % colors.length];
-    ctx.fillText(`${app.name.split('—')[0].trim()} · ${app.watts}W`, 8, yBase - amp - 4);
-  });
-
-  const totalW = waves.reduce((s, a) => s + a.watts, 0);
-  ctx.font = '500 11px Syne, sans-serif';
-  ctx.fillStyle = '#E8EAE8';
-  const label = `${(totalW / 1000).toFixed(2)} kW active`;
-  const labelW = ctx.measureText(label).width;
-  ctx.fillText(label, W - labelW - 8, 18);
-
-  t += 0.04;
-  requestAnimationFrame(drawViz);
-}
-drawViz();
-
-(function rotateFavicon() {
-  const link = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
-  if (!link) return;
-
-  const G = '#009E5C', BG = '#111210';
-  const head = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="' + BG + '"/>';
-  const tail = '</svg>';
-
-  const icons = [
-    (op) => `<path d="M18 4 L9 17 L14 17 L12 28 L23 13 L17 13 Z" fill="${G}" fill-opacity="${op}"/>`,
-    (op) => `<path d="M3 16 Q8 4, 13 16 T23 16 L29 16" stroke="${G}" stroke-opacity="${op}" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
-    (op) => `<circle cx="16" cy="16" r="10" stroke="${G}" stroke-opacity="${op}" stroke-width="2" fill="none"/><circle cx="16" cy="16" r="4" fill="${G}" fill-opacity="${op}"/>`,
-    (op) => `<path d="M6 16 L16 6 L26 16 L26 26 L6 26 Z" fill="${G}" fill-opacity="${op}"/><path d="M19 11 L13 20 L16 20 L14 25 L21 16 L18 16 Z" fill="${BG}" fill-opacity="${op}"/>`
+/* Live circuit-panel + energy-flow updater — one data source for both */
+(function(){
+  const AP=[
+    {key:'ac',b:'b-ac',v:'v-ac',fv:'fv-ac',base:1.82,range:.22,pct:82,max:3},
+    {key:'ev',b:'b-ev',v:'v-ev',fv:'fv-ev',base:1.20,range:.16,pct:55,max:3},
+    {key:'kt',b:'b-kt',v:'v-kt',fv:'fv-kt',base:.62, range:.14,pct:28,max:3},
+    {key:'lt',b:'b-lt',v:'v-lt',fv:'fv-lt',base:.11, range:.03,pct:10,max:1},
   ];
+  const SOLAR={base:1.4,range:.5,max:3};
+  const GRID={max:6};
+  const INSIGHTS=[
+    'AC shifted to off-peak schedule. Saving ₹380 automatically this week.',
+    'EV charging scheduled for 23:00 — off-peak tariff saves ₹210 tonight.',
+    'Grid demand response active. Panel dispatching 0.8 kW to the network.',
+    'Predicted peak at 19:30. Pre-cooling AC now to avoid peak tariff window.',
+    'Kitchen load 12% below baseline. Efficiency improving month-on-month.',
+  ];
+  const flow={solar:1.4,grid:2,ac:1.82,ev:1.20,kt:.62,lt:.11};
+  let tick=0;
+  function update(){
+    let total=0;
+    AP.forEach(a=>{
+      const j=(Math.random()-.5)*2*a.range;
+      const val=Math.max(.04,+(a.base+j).toFixed(2));
+      total+=val;
+      flow[a.key]=val;
+      const p=Math.max(4,Math.min(97,a.pct+(j/a.base)*a.pct));
+      const bar=document.getElementById(a.b);
+      const lbl=document.getElementById(a.v);
+      const fv=document.getElementById(a.fv);
+      if(bar)bar.style.width=p.toFixed(1)+'%';
+      if(lbl)lbl.textContent=val.toFixed(2)+' kW';
+      if(fv)fv.textContent=val.toFixed(2)+' kW';
+    });
+    const sj=(Math.random()-.5)*2*SOLAR.range;
+    const sVal=Math.max(0,+(SOLAR.base+sj).toFixed(2));
+    flow.solar=sVal;
+    const gVal=Math.max(0,+(total-sVal).toFixed(2));
+    flow.grid=gVal;
+    const exporting=sVal>total;
+    const fvSolar=document.getElementById('fv-solar');
+    const fvGrid=document.getElementById('fv-grid');
+    if(fvSolar)fvSolar.textContent=sVal.toFixed(2)+' kW';
+    if(fvGrid)fvGrid.textContent=exporting?'Exporting '+(sVal-total).toFixed(2)+' kW':gVal.toFixed(2)+' kW';
 
-  const TICK_MS = 100;
-  const ICON_TICKS = 24;
-  const BLINK_PERIOD = 8;
-  const ON_TICKS = 6;
-  let frame = 0, iconIdx = 0;
-
-  function paint() {
-    const isOn = (frame % BLINK_PERIOD) < ON_TICKS;
-    const op = isOn ? '1' : '0.1';
-    link.href = 'data:image/svg+xml;utf8,' + encodeURIComponent(head + icons[iconIdx](op) + tail);
-    frame++;
-    if (frame >= ICON_TICKS) { frame = 0; iconIdx = (iconIdx + 1) % icons.length; }
+    const tv=document.getElementById('v-tot');
+    if(tv)tv.textContent=total.toFixed(2)+' kW';
+    tick++;
+    if(tick%6===0){
+      const ai=document.getElementById('ai-txt');
+      if(ai)ai.textContent=INSIGHTS[Math.floor(Math.random()*INSIGHTS.length)];
+    }
+    const tEl=document.getElementById('ts');
+    if(tEl)tEl.textContent=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
   }
+  update();
+  setInterval(update,2500);
 
-  paint();
-  setInterval(paint, TICK_MS);
+  /* Sequenced flow animation: core glows, dots travel in (solar/grid), core glows, dots travel out (circuits) */
+  const els={
+    solar:{el:document.getElementById('p-solar'),dot:document.getElementById('dot-solar'),max:SOLAR.max},
+    grid:{el:document.getElementById('p-grid'),dot:document.getElementById('dot-grid'),max:GRID.max},
+    ac:{el:document.getElementById('p-ac'),dot:document.getElementById('dot-ac'),max:3},
+    ev:{el:document.getElementById('p-ev'),dot:document.getElementById('dot-ev'),max:3},
+    kt:{el:document.getElementById('p-kt'),dot:document.getElementById('dot-kt'),max:3},
+    lt:{el:document.getElementById('p-lt'),dot:document.getElementById('dot-lt'),max:1},
+  };
+  const coreGlow=document.getElementById('core-glow');
+  const coreDot=document.getElementById('core-dot');
+  if(coreGlow&&coreDot&&els.solar.el&&!REDUCE_MOTION){
+    const CYCLE=4600;
+    const T_CORE_IN=[0,700];
+    const T_SUPPLY=[700,2100];
+    const T_CORE_OUT=[2100,2500];
+    const T_LOAD=[2500,4100];
+
+    function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+    function clamp01(x){return Math.max(0,Math.min(1,x))}
+    function windowProgress(t,win){return clamp01((t-win[0])/(win[1]-win[0]))}
+
+    function moveDot(item,key,t,win){
+      const p=windowProgress(t,win);
+      if(p<=0||p>=1){item.dot.setAttribute('opacity',0);return}
+      const len=item.el.getTotalLength();
+      const pt=item.el.getPointAtLength(ease(p)*len);
+      const lf=Math.min(1,(flow[key]||0)/item.max);
+      item.dot.setAttribute('cx',pt.x);
+      item.dot.setAttribute('cy',pt.y);
+      item.dot.setAttribute('opacity',(0.55+lf*0.45).toFixed(2));
+      item.dot.setAttribute('r',(2+lf*1.2).toFixed(1));
+      item.el.style.opacity=(0.12+0.18*Math.sin(p*Math.PI)).toFixed(2);
+    }
+
+    function animate(now){
+      const t=now%CYCLE;
+      let glowAmt=0;
+      if(t>=T_CORE_IN[0]&&t<T_CORE_IN[1]){
+        glowAmt=Math.sin(windowProgress(t,T_CORE_IN)*Math.PI);
+      }else if(t>=T_CORE_OUT[0]&&t<T_CORE_OUT[1]){
+        glowAmt=Math.sin(windowProgress(t,T_CORE_OUT)*Math.PI);
+      }
+      coreGlow.setAttribute('opacity',(glowAmt*0.45).toFixed(2));
+      coreGlow.setAttribute('r',(10+glowAmt*9).toFixed(1));
+      coreDot.setAttribute('r',(5.5+glowAmt*1.8).toFixed(1));
+
+      moveDot(els.solar,'solar',t,T_SUPPLY);
+      moveDot(els.grid,'grid',t,T_SUPPLY);
+      moveDot(els.ac,'ac',t,T_LOAD);
+      moveDot(els.ev,'ev',t,T_LOAD);
+      moveDot(els.kt,'kt',t,T_LOAD);
+      moveDot(els.lt,'lt',t,T_LOAD);
+
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  }
 })();
+
+/* Animate the small nav/footer hex logos via JS (keeps markup simple & ids unique-safe) */
+document.querySelectorAll('svg[data-logo-id]').forEach(svg=>{
+  const lines=svg.querySelectorAll('[data-id^="seg"]');
+  const hex=svg.querySelector('[data-id="hex"]');
+  if(REDUCE_MOTION){
+    [hex,...lines].forEach(el=>{ if(el) el.style.opacity='0.5'; });
+    return;
+  }
+  let t=0;
+  setInterval(()=>{
+    t=(t+1)%6;
+    [hex,...lines].forEach((el,i)=>{
+      if(!el)return;
+      el.style.transition='opacity .5s ease';
+      el.style.opacity= i===t ? '0.7' : '0.3';
+    });
+  },380);
+});
 </script>
 </body>
 </html>

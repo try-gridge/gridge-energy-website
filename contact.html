@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111210">
+<title>Contact — Gridge Energy</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#111210;color:#F5F3EE;line-height:1.55;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+:root{
+  --bg:#111210; --bg-2:#0E0F0D; --bg-3:#171815; --bg-deep:#0C0D0B;
+  --border:#2A2A25; --green:#22C55E; --green-bg:rgba(34,197,94,.07); --green-bd:rgba(34,197,94,.14);
+  --warm:#F5F3EE; --w50:rgba(245,243,238,.50); --w42:rgba(245,243,238,.42); --w35:rgba(245,243,238,.35);
+  --w28:rgba(245,243,238,.28); --w20:rgba(245,243,238,.20); --w14:rgba(245,243,238,.14); --w07:rgba(245,243,238,.07);
+}
+h1,h2,h3{font-family:'Syne',sans-serif;font-weight:700;line-height:1.05;letter-spacing:-.02em}
+p{font-weight:300;line-height:1.68}
+.t-label{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--green);display:block}
+.t-display{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,4rem);line-height:1.02;letter-spacing:-.025em}
+.t-display em{font-style:normal;font-weight:400;color:var(--w35)}
+.t-body-lg{font-size:1.05rem;line-height:1.68;color:var(--w50);font-weight:300}
+.container{width:100%;max-width:1120px;margin:0 auto;padding:0 2.5rem}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;background:rgba(17,18,16,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{width:100%;max-width:1120px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:32px;height:32px;flex-shrink:0;display:block}
+.nav-logo-text{font-family:'Syne',sans-serif;font-weight:600;font-size:1.05rem;color:var(--warm);letter-spacing:-.01em;white-space:nowrap}
+.nav-logo-text em{font-style:normal;font-weight:800;color:var(--green)}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{font-size:.875rem;color:var(--w42);padding:.38rem .85rem;border-radius:7px;transition:color .15s,background .15s;white-space:nowrap}
+.nav-links a:hover{color:var(--warm);background:var(--w07)}
+.nav-cta{font-size:.875rem;font-weight:500;color:var(--warm);padding:.42rem 1.1rem;border-radius:8px;background:var(--w07);border:1px solid var(--w14);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:.85rem 1.6rem;border-radius:9px;font-weight:500;font-size:.9rem;cursor:pointer;border:none;text-decoration:none;transition:all .18s;white-space:nowrap;width:100%}
+.btn-green{background:var(--green);color:#111210;font-weight:600}
+.btn-green:hover{background:#19a84e;transform:translateY(-1px)}
+.page-wrap{padding:calc(60px + 5.5rem) 0 6rem;background:var(--bg);min-height:100vh}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.info-row{display:flex;gap:1rem;align-items:flex-start;padding:1.1rem 0;border-top:1px solid var(--border)}
+.info-row:last-child{border-bottom:1px solid var(--border)}
+.info-dot{width:5px;height:5px;background:var(--green);border-radius:50%;flex-shrink:0;margin-top:8px}
+.info-title{font-size:.92rem;color:var(--warm);margin-bottom:.2rem}
+.info-desc{font-size:.84rem;color:var(--w35);line-height:1.65}
+.form-card{background:var(--bg-3);border:1px solid var(--border);border-radius:16px;padding:2.25rem}
+.f-group{margin-bottom:1.25rem}
+.f-label{display:block;font-size:.8rem;color:var(--w42);margin-bottom:.5rem;font-weight:400}
+.f-input,.f-select,.f-textarea{width:100%;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:.7rem .9rem;color:var(--warm);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .15s}
+.f-input:focus,.f-select:focus,.f-textarea:focus{border-color:var(--green)}
+.f-textarea{resize:vertical;min-height:90px}
+.f-success{display:none;text-align:center;padding:2rem 0}
+.f-success.show{display:block}
+.f-success .dot-ok{width:42px;height:42px;border-radius:50%;background:var(--green-bg);border:1px solid var(--green-bd);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;color:var(--green);font-size:1.2rem}
+footer{background:var(--bg-deep);border-top:1px solid var(--border);padding:4rem 0 2.5rem}
+.footer-brand-row{display:flex;align-items:center;gap:10px;margin-bottom:.85rem}
+.footer-mark{width:30px;height:30px;flex-shrink:0}
+.footer-brand-text{font-family:'Syne',sans-serif;font-weight:600;font-size:1.05rem;color:var(--warm)}
+.footer-brand-text em{font-style:normal;font-weight:800;color:var(--green)}
+.footer-tagline{font-size:.88rem;font-weight:300;color:var(--w28);max-width:340px}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:3rem;padding-top:1.75rem;border-top:1px solid var(--border)}
+.footer-links{display:flex;gap:1.75rem}
+.footer-links a{font-size:.82rem;color:var(--w28)}
+.footer-links a:hover{color:var(--w50)}
+.footer-copy{font-size:.75rem;color:var(--w20)}
+@media(max-width:680px){.nav-links{display:none}}
+@media(max-width:900px){.grid-2{grid-template-columns:1fr}.footer-bottom{flex-direction:column;gap:1.25rem;text-align:center}.footer-links{justify-content:center;flex-wrap:wrap}}
+@media(min-width:680px) and (max-width:900px){.sec,.sec-lg{padding:5rem 0}}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <svg class="logo-mark" viewBox="0 0 40 40" data-logo-id="nav">
+        <g transform="translate(20,20) scale(0.282)">
+          <line data-id="seg1" x1="0" y1="0" x2="0" y2="-41" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg2" x1="0" y1="0" x2="35.5" y2="-20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg3" x1="0" y1="0" x2="35.5" y2="20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg4" x1="0" y1="0" x2="0" y2="41" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg5" x1="0" y1="0" x2="-35.5" y2="20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <line data-id="seg6" x1="0" y1="0" x2="-35.5" y2="-20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <polygon data-id="hex" points="0,-41 35.5,-20.5 35.5,20.5 0,41 -35.5,20.5 -35.5,-20.5" fill="none" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+          <circle cx="0" cy="0" r="16" fill="#22C55E"><animate attributeName="opacity" values="0.5;0.85;0.5" dur="2.4s" repeatCount="indefinite"/></circle>
+          <circle cx="0" cy="0" r="7" fill="#111210"/>
+        </g>
+      </svg>
+      <span class="nav-logo-text">Gridge <em>Energy</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="product.html">Product</a>
+      <a href="technology.html">Technology</a>
+      <a href="ecosystem.html">Ecosystem</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Request a Demo</a>
+  </div>
+</nav>
+
+<section class="page-wrap">
+  <div class="container">
+    <div class="grid-2">
+      <div class="reveal">
+        <div class="t-label" style="margin-bottom:1.1rem">Get in Touch</div>
+        <h1 class="t-display" style="margin-bottom:1.25rem">Built for homes<br>that <em>demand more.</em></h1>
+        <p class="t-body-lg" style="max-width:420px;margin-bottom:2.5rem">We're currently validating in Bengaluru. Limited spots.
+Tell us about your home or project and we'll reach out as your area opens up.</p>
+        <div>
+          <div class="info-row"><div class="info-dot"></div><div><div class="info-title">Homeowners</div><div class="info-desc">Join the waitlist for early access.</div></div></div>
+          <div class="info-row"><div class="info-dot"></div><div><div class="info-title">Builders & Developers</div><div class="info-desc">Specify Gridge into your next project's electrical package.</div></div></div>
+          <div class="info-row"><div class="info-dot"></div><div><div class="info-title">DISCOMs & Utilities</div><div class="info-desc">Explore demand-response and grid-services partnerships.</div></div></div>
+          <div class="info-row"><div class="info-dot"></div><div><div class="info-title">Press & Investors</div><div class="info-desc">Reach the founding team directly for media or funding conversations.</div></div></div>
+        </div>
+      </div>
+
+      <div class="reveal d1">
+        <div class="form-card">
+          <form id="contact-form">
+            <div class="f-group"><label class="f-label">Full name</label><input class="f-input" type="text" required></div>
+            <div class="f-group"><label class="f-label">Email address</label><input class="f-input" type="email" required></div>
+            <div class="f-group"><label class="f-label">City</label><input class="f-input" type="text" placeholder="Bengaluru"></div>
+            <div class="f-group">
+              <label class="f-label">I'm reaching out as a…</label>
+              <select class="f-select">
+                <option>Homeowner</option>
+                <option>Builder / Developer</option>
+                <option>DISCOM / Utility</option>
+                <option>Press / Investor</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="f-group"><label class="f-label">Message (optional)</label><textarea class="f-textarea" placeholder="Tell us a bit about your home or project…"></textarea></div>
+            <button type="submit" class="btn btn-green">Request Early Access</button>
+          </form>
+          <div class="f-success" id="f-success">
+            <div class="dot-ok">✓</div>
+            <div style="font-size:1.05rem;color:var(--warm);margin-bottom:.4rem">You're in. Early access confirmed.</div>
+            <p style="font-size:.85rem;color:var(--w42)">We'll reach out as soon as Gridge is available in your area.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <div class="footer-brand-row">
+        <svg class="footer-mark" viewBox="0 0 40 40" data-logo-id="footer">
+          <g transform="translate(20,20) scale(0.282)">
+            <line data-id="seg1" x1="0" y1="0" x2="0" y2="-41" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg2" x1="0" y1="0" x2="35.5" y2="-20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg3" x1="0" y1="0" x2="35.5" y2="20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg4" x1="0" y1="0" x2="0" y2="41" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg5" x1="0" y1="0" x2="-35.5" y2="20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <line data-id="seg6" x1="0" y1="0" x2="-35.5" y2="-20.5" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <polygon data-id="hex" points="0,-41 35.5,-20.5 35.5,20.5 0,41 -35.5,20.5 -35.5,-20.5" fill="none" stroke="#22C55E" stroke-width="5" opacity="0.3"/>
+            <circle cx="0" cy="0" r="16" fill="#22C55E"><animate attributeName="opacity" values="0.5;0.85;0.5" dur="2.4s" repeatCount="indefinite"/></circle>
+            <circle cx="0" cy="0" r="7" fill="#111210"/>
+          </g>
+        </svg>
+        <span class="footer-brand-text">Gridge <em>Energy</em></span>
+      </div>
+      <div class="footer-tagline">Smarter homes. Lighter bills. Safer families.</div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="product.html">Product</a>
+        <a href="technology.html">Technology</a>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-copy">© 2026 Gridge Energy · Bengaluru, India · gridgeenergy.com</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const REDUCE_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(REDUCE_MOTION){document.querySelectorAll('svg').forEach(s=>{if(s.pauseAnimations)s.pauseAnimations();});}
+const revealEls=document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+  revealEls.forEach(el=>io.observe(el));
+  setTimeout(()=>revealEls.forEach(el=>el.classList.add('visible')),2500);
+}else{revealEls.forEach(el=>el.classList.add('visible'));}
+document.querySelectorAll('svg[data-logo-id]').forEach(svg=>{
+  const lines=svg.querySelectorAll('[data-id^="seg"]'),hex=svg.querySelector('[data-id="hex"]');
+  if(REDUCE_MOTION){[hex,...lines].forEach(el=>{if(el)el.style.opacity='0.5';});return;}
+  let t=0;
+  setInterval(()=>{t=(t+1)%6;[hex,...lines].forEach((el,i)=>{if(!el)return;el.style.transition='opacity .5s ease';el.style.opacity=i===t?'0.7':'0.3';});},380);
+});
+
+/* Front-end-only form handling — no backend wired up yet */
+document.getElementById('contact-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  this.style.display='none';
+  document.getElementById('f-success').classList.add('show');
+});
+</script>
+</body>
+</html>
