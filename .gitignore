@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# editors
+.vscode/
+.idea/
+*.swp
+
+# tooling output — the site has no build step; nothing generated belongs in git
+node_modules/
+dist/
+.cache/
+
+# large single-file exports (17 MB+). Generate on demand, do not commit.
+*-standalone.html
+*-inlined.html
