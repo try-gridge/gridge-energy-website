@@ -1,0 +1,6 @@
+# old multi-page urls now live as sections of the single page
+/product      /#product      301
+/technology   /#technology   301
+/ecosystem    /#ecosystem    301
+/contact      /#contact      301
+/thank-you    /              301
